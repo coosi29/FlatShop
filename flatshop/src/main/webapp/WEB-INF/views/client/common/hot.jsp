@@ -7,19 +7,19 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="shortcut icon" href="images/favicon.png">
-<title>Welcome to FlatShop</title>
-<link href="../resource/client/css/bootstrap.css" rel="stylesheet">
-<link
-	href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,700,500italic,100italic,100'
-	rel='stylesheet' type='text/css'>
-<link href="../resource/client/css/font-awesome.min.css"
-	rel="stylesheet">
-<link rel="stylesheet" href="../client/css/flexslider.css"
-	type="text/css" media="screen" />
-<link href="../resource/client/css/sequence-looptheme.css"
-	rel="stylesheet" media="all" />
-<link href="../resource/client/css/style.css" rel="stylesheet">
+<!-- <link rel="shortcut icon" href="images/favicon.png"> -->
+<!-- <title>Welcome to FlatShop</title> -->
+<!-- <link href="../resource/client/css/bootstrap.css" rel="stylesheet"> -->
+<!-- <link -->
+<!-- 	href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,700,500italic,100italic,100' -->
+<!-- 	rel='stylesheet' type='text/css'> -->
+<!-- <link href="../resource/client/css/font-awesome.min.css" -->
+<!-- 	rel="stylesheet"> -->
+<!-- <link rel="stylesheet" href="../client/css/flexslider.css" -->
+<!-- 	type="text/css" media="screen" /> -->
+<!-- <link href="../resource/client/css/sequence-looptheme.css" -->
+<!-- 	rel="stylesheet" media="all" /> -->
+<!-- <link href="../resource/client/css/style.css" rel="stylesheet"> -->
 <!--[if lt IE 9]><script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script><script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script><![endif]-->
 </head>
 
@@ -49,6 +49,8 @@
 								<c:if test="${product.saleDTO.salePercent == 0}">
 									<span class="price"
 										style="font-size: 15px; color: black; text-decoration: line-through; margin-bottom: 0px; margin-top: -5px;">.</span>
+										<span class="price">$${product.price - (product.price *
+										product.saleDTO.salePercent / 100)}0</span>
 								</c:if>
 
 								<c:if test="${product.saleDTO.salePercent != 0}">
@@ -81,31 +83,40 @@
 			</li>
 			<li>
 				<div class="row">
-					<c:forEach begin="1" end="4">
+					<c:forEach items="${hotTwo}" var="product">
 						<div class="col-md-3 col-sm-6">
 							<div class="products">
-								<div class="offer"
-									th:text="'-' + ${product.sale.salePercent} + '%'"></div>
+								<div class="offer">-${product.saleDTO.salePercent}%</div>
 								<div class="thumbnail">
-									<a
-										th:href="@{'/client/product-details?productId=' + ${product.productId}}"><img
-										style="width: 90%;"
-										th:src="@{'/download?image=' + ${product.image}}"
+									<a href="product-details?productId=${product.productId}"><img
+										style="width: 90%;" src="../download?image=${product.image}"
 										alt="Product Name"></a>
 								</div>
-								<div class="productname" th:text="${product.productName}"></div>
-								<span class="price" th:if="${product.sale.salePercent == 0}"
-									style="font-size: 15px; color: black; text-decoration: line-through; margin-bottom: 0px; margin-top: -5px;">.</span>
-								<span class="price" th:if="${product.sale.salePercent != 0}"
-									th:text="'$' + ${product.price} + '0'"
-									style="font-size: 15px; color: black; text-decoration: line-through; margin-bottom: 0px; margin-top: -5px;"></span>
-								<span class="price"
-									th:text="'$' + ${product.price - (product.price * product.sale.salePercent / 100)} + '0'">
-								</span>
+								<div class="productname">${product.productName}</div>
+
+								<c:if test="${product.saleDTO.salePercent == 0}">
+									<span class="price"
+										style="font-size: 15px; color: black; text-decoration: line-through; margin-bottom: 0px; margin-top: -5px;">.</span>
+										<span class="price">$${product.price - (product.price *
+										product.saleDTO.salePercent / 100)}0</span>
+								</c:if>
+
+								<c:if test="${product.saleDTO.salePercent != 0}">
+									<span class="price"
+										style="font-size: 15px; color: black; text-decoration: line-through; margin-bottom: 0px; margin-top: -5px;">$${product.price}0</span>
+									<span class="price">$${product.price - (product.price *
+										product.saleDTO.salePercent / 100)}0</span>
+								</c:if>
 
 								<div class="button_group">
-									<a class="button add-cart" type="button" href="#">Add To
-										Cart</a>
+									<c:if test="${sessionScope.user == null}">
+										<a class="button add-cart" type="button" href="../login">Add
+											To Cart</a>
+									</c:if>
+									<c:if test="${sessionScope.user != null}">
+										<a class="button add-cart" type="button" href="add-to-cart?productId=${product.productId}">Add
+											To Cart</a>
+									</c:if>
 									<button class="button compare" type="button">
 										<i class="fa fa-exchange"></i>
 									</button>
@@ -121,14 +132,14 @@
 		</ul>
 	</div>
 	<!-- Bootstrap core JavaScript==================================================-->
-	<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
-	<script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="js/jquery.sequence-min.js"></script>
-	<script type="text/javascript"
-		src="js/jquery.carouFredSel-6.2.1-packed.js"></script>
-	<script defer src="js/jquery.flexslider.js"></script>
-	<script type="text/javascript" src="js/script.min.js"></script>
+<!-- 	<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script> -->
+<!-- 	<script type="text/javascript" src="js/jquery.easing.1.3.js"></script> -->
+<!-- 	<script type="text/javascript" src="js/bootstrap.min.js"></script> -->
+<!-- 	<script type="text/javascript" src="js/jquery.sequence-min.js"></script> -->
+<!-- 	<script type="text/javascript" -->
+<!-- 		src="js/jquery.carouFredSel-6.2.1-packed.js"></script> -->
+<!-- 	<script defer src="js/jquery.flexslider.js"></script> -->
+<!-- 	<script type="text/javascript" src="js/script.min.js"></script> -->
 </body>
 
 </html>

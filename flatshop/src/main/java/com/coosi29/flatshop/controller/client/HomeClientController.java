@@ -25,6 +25,8 @@ public class HomeClientController {
 	public String home(HttpServletRequest request) {
 		request.setAttribute("hotOne", productService.hotProducts(0, 4));
 		request.setAttribute("hotTwo", productService.hotProducts(1, 4));
+		request.setAttribute("featuredOne", productService.featuredProducts(0, 4));
+		request.setAttribute("featuredTwo", productService.featuredProducts(1, 4));
 		request.setAttribute("categories", categoryService.findAll());
 		return "client/home";
 	}

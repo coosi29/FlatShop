@@ -33,7 +33,7 @@
 						<li><a href="#"> <img src="../download?image=${sessionScope.user.avatar}"
 								class="img-circle" alt="Avatar"> <span>${sessionScope.username}</span>
 						</a></li>
-						<li><a href="logout"> <i class="material-icons"
+						<li><a href="../logout"> <i class="material-icons"
 								style="color: red;">&#xe8ac;</i><span>Logout</span>
 						</a></li>
 					</ul>

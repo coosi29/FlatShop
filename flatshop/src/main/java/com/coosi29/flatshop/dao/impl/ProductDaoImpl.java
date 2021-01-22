@@ -85,8 +85,10 @@ public class ProductDaoImpl implements ProductDao{
 
 	@Override
 	public List<Product> featuredProducts(int pageIndex, int pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT p FROM Product p WHERE p.category.categoryId = 6 ORDER BY p.price DESC";
+		int first = pageIndex * pageSize;
+		Query query = sessionFactory.getCurrentSession().createQuery(sql).setFirstResult(first).setMaxResults(pageSize);
+		return query.list();
 	}
 
 }

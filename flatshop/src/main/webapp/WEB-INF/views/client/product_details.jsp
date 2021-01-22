@@ -15,7 +15,7 @@
 	rel='stylesheet' type='text/css'>
 <link href="../resource/client/css/font-awesome.min.css"
 	rel="stylesheet">
-<link rel="stylesheet" href="../client/css/flexslider.css"
+<link rel="stylesheet" href="../resource/client/css/flexslider.css"
 	type="text/css" media="screen" />
 <link href="../resource/client/css/sequence-looptheme.css"
 	rel="stylesheet" media="all" />
@@ -128,7 +128,6 @@
 
 		<jsp:include page="common/footer.jsp"/>
 	</div>
-	<!-- Bootstrap core JavaScript==================================================-->
 	<script type="text/javascript" src="../resource/client/js/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="../resource/client/js/jquery.easing.1.3.js"></script>
 	<script type="text/javascript" src="../resource/client/js/bootstrap.min.js"></script>
