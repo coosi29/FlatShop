@@ -40,8 +40,11 @@
 <body>
 	<!-- WRAPPER -->
 	<div id="wrapper">
-		<div th:replace="admin/common/header :: header"></div>
-		<div th:replace="admin/common/category :: category"></div>
+
+		<jsp:include page="../common/header.jsp" />
+
+		<jsp:include page="../common/category.jsp" />
+
 		<!-- MAIN -->
 		<!-- MAIN CONTENT -->
 		<div class="main">
@@ -61,7 +64,7 @@
 														<span class="label label-danger"
 															style="font-size: 15px; margin-right: 15px;">Delete</span>
 													</button>
-													<a th:href="@{../admin/user-create}"><span
+													<a href="user-create"><span
 														class="label label-success" style="font-size: 15px;">Create
 															new account</span></a>
 												</div>
@@ -70,10 +73,11 @@
 												<table class="table table-striped" style="margin: auto;">
 													<thead>
 														<tr>
-															<th><input type="checkbox" name="all" id="checkAll" /></th>
+															<th><input type="checkbox" name="all" id="checkAll"
+																style="cursor: pointer;" /></th>
 															<th>ID</th>
 															<th style="width: 5%;">Avatar</th>
-															<th style="padding-left: 20px;">Username</th>
+															<th style="padding-left: 20px;">Email</th>
 															<th>Full Name</th>
 															<th>Phone</th>
 															<th style="width: 25%;">Address</th>
@@ -83,35 +87,33 @@
 														</tr>
 													</thead>
 													<tbody>
-														<tr th:each="user, iter : ${users}">
-															<td style="vertical-align: middle;"><input
-																class="checkbox" type="checkbox" name="userId" th:value="${user.userId}"
-																th:id="${iter.index + 1}" /></td>
-															<td style="vertical-align: middle;"
-																th:text="${user.userId}"></td>
-															<td style="vertical-align: middle;"><img
-																th:src="@{'/download?image=' + ${user.avatar}}"
-																alt="Avatar" class="avatar img-circle"
-																style="width: 100%;"></td>
-															<td style="vertical-align: middle; padding-left: 25px;"
-																th:text="${user.username}">username</td>
-															<td style="vertical-align: middle;"
-																th:text="${user.fullName}">fullName</td>
-															<td style="vertical-align: middle;"
-																th:text="${user.phone}">phone</td>
-															<td style="vertical-align: middle;"
-																th:text="${user.address}">address</td>
-															<td style="vertical-align: middle;"
-																th:if="${user.gender == true}">Male</td>
-															<td style="vertical-align: middle;"
-																th:if="${user.gender == false}">Female</td>
-															<td style="vertical-align: middle;"
-																th:text="${user.role.role}"></td>
-															<td style="vertical-align: middle;"><a
-																th:href="@{'/admin/user-update?userId=' + ${user.userId}}"> <span
-																	class="label label-warning" style="font-size: 15px;">Update</span>
-															</a></td>
-														</tr>
+														<c:forEach items="${users}" var="user" varStatus="loop">
+															<tr>
+																<td style="vertical-align: middle;"><input
+																	class="checkbox" type="checkbox" name="userId" 
+																	value="" id="${loop.count}"
+																	style="cursor: pointer;" /></td>
+																<td style="vertical-align: middle;">${user.userId}</td>
+																<td style="vertical-align: middle;"><img src="../download?image=${user.avatar}"
+																	alt="Avatar" class="avatar img-circle"
+																	style="width: 100%;"></td>
+																<td style="vertical-align: middle; padding-left: 25px;">${user.email}</td>
+																<td style="vertical-align: middle;">${user.fullname}</td>
+																<td style="vertical-align: middle;">${user.phone}</td>
+																<td style="vertical-align: middle;">${user.address}</td>
+																<td style="vertical-align: middle;"">
+																	<c:choose>
+																		<c:when test="${user.gender}">Male</c:when>
+																		<c:otherwise>Female</c:otherwise>
+																	</c:choose>
+																</td>
+																<td style="vertical-align: middle;">${user.role.roleName}</td>
+																<td style="vertical-align: middle;"><a href="user-update?userId=${user.userId}">
+																		<span class="label label-warning"
+																		style="font-size: 15px;">Update</span>
+																</a></td>
+															</tr>
+														</c:forEach>
 													</tbody>
 												</table>
 											</div>
@@ -119,13 +121,15 @@
 										<nav aria-label="Page navigation example"
 											style="margin-top: -30px;">
 											<ul class="pagination">
-												<li class="page-item"
-													th:each="page : ${#numbers.sequence(0, totalPage - 1)}">
-													<a class="page-link"
-													th:style="${page == pageIndex} ? 'background-color: #F0AD4E; color: white;'"
-													th:text="${page + 1}"
-													th:href="@{'/admin/user-list?pageIndex=' + ${page}}"></a>
-												</li>
+												<c:forEach begin="0" end="${totalPage - 1}" var="i">
+													<li class="page-item"><a class="page-link"
+														<c:if test="${i == pageIndex}">
+															style="background-color: #F0AD4E; color: white;"
+														</c:if>
+														href="user-list?pageIndex=${i}">${i + 1}</a>
+													</li>
+												</c:forEach>
+												
 											</ul>
 										</nav>
 									</div>

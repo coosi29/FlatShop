@@ -15,8 +15,10 @@ public interface UserService {
 	
 	UserDTO findById(long userId);
 	
-	List<UserDTO> findAll();
+	List<UserDTO> findAll(int pageIndex, int PageSize);
 
 	UserDTO findByEmailOrPhoneAndPassword(String account, String password, boolean verity);
+	
+	int count();
 	
 }

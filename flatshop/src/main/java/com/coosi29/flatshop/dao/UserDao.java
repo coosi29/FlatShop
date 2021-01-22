@@ -14,9 +14,11 @@ public interface UserDao {
 	
 	User findById(long userId);
 	
-	List<User> findAll();
+	List<User> findAll(int pageIndex, int pageSize);
 
 	User findByEmailOrPhoneAndPassword(String account, String password, boolean verity);
 
 	User loadUserByUsername(String account);
+	
+	int count();
 }

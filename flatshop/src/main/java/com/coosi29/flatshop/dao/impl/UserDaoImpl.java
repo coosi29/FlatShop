@@ -40,13 +40,13 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User findById(long userId) {
-		// TODO Auto-generated method stub
-		return null;
+		return (User) sessionFactory.getCurrentSession().get(User.class, userId);
 	}
 
 	@Override
-	public List<User> findAll() {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(User.class);
+	public List<User> findAll(int pageIndex, int pageSize) {
+		int first = pageIndex * pageSize;
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(User.class).setFirstResult(first).setMaxResults(pageSize);
 		return criteria.list();
 	}
 
@@ -62,6 +62,14 @@ public class UserDaoImpl implements UserDao {
 		String sql = "SELECT u FROM User u WHERE u.email = '" + account + "' or u.phone = '" + account + "'";
 		Query query = sessionFactory.getCurrentSession().createQuery(sql);
 		return (User) query.uniqueResult();
+	}
+
+	@Override
+	public int count() {
+		String sql = "SELECT count(u) FROM User u";
+		Query query = sessionFactory.getCurrentSession().createQuery(sql);
+		long count = (long) query.uniqueResult();
+		return (int) count;
 	}
 
 }

@@ -1,8 +1,21 @@
 package com.coosi29.flatshop.model;
 
+import java.util.Collection;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+
 import com.coosi29.flatshop.entity.Role;
 
-public class UserDTO {
+public class UserPrincipal extends User {
+
+	
+	private static final long serialVersionUID = 1L;
+
+	public UserPrincipal(String email, String phone, String password, Collection<? extends GrantedAuthority> authorities) {
+		super(email, password, authorities);
+		this.phone = phone;
+	}
 
 	private long userId;
 	private String email;
@@ -15,18 +28,13 @@ public class UserDTO {
 	private Role role;
 	private String avatar;
 
-	public UserDTO() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	
-
-	public UserDTO(long userId, String email, String password, String fullname, String phone, String address,
-			boolean gender, boolean verify, Role role, String avatar) {
-		super();
+	public UserPrincipal(String username, String password, Collection<? extends GrantedAuthority> authorities, long userId,
+			String email, String password2, String fullname, String phone, String address, boolean gender,
+			boolean verify, Role role, String avatar) {
+		super(username, password, authorities);
 		this.userId = userId;
 		this.email = email;
-		this.password = password;
+		password = password2;
 		this.fullname = fullname;
 		this.phone = phone;
 		this.address = address;
@@ -35,8 +43,6 @@ public class UserDTO {
 		this.role = role;
 		this.avatar = avatar;
 	}
-
-
 
 	public long getUserId() {
 		return userId;

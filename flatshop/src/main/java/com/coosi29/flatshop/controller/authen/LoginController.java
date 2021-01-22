@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.coosi29.flatshop.model.UserDTO;
+import com.coosi29.flatshop.model.UserPrincipal;
 import com.coosi29.flatshop.service.UserService;
 
 @Controller
@@ -28,9 +29,9 @@ public class LoginController {
 	
 	@GetMapping(value = "/home")
 	public String loginSuccess(HttpServletRequest request, HttpSession session) {
-		UserDTO userDTO = (UserDTO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		session.setAttribute("user", userDTO);
-		String username = userDTO.getEmail();
+		UserPrincipal userPrincipal =  (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		session.setAttribute("user", userPrincipal);
+		String username = userPrincipal.getEmail();
 		session.setAttribute("username", username.split("@")[0]);
 		if (request.isUserInRole("ADMIN")) {
 			return "redirect:/admin/home";

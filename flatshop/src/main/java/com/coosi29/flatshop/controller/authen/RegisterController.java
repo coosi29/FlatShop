@@ -26,7 +26,7 @@ public class RegisterController {
 	@PostMapping(value = "/register")
 	public String register(HttpServletRequest request,
 			@RequestParam(name = "email") String email, @RequestParam(name = "password") String password) {
-		UserDTO userDTO = new UserDTO(null, null, null, null);
+		UserDTO userDTO = new UserDTO();
 		userDTO.setEmail(email);
 		userDTO.setPassword(new BCryptPasswordEncoder().encode(password));
 		userService.insert(userDTO);

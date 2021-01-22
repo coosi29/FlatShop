@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.coosi29.flatshop.dao.UserDao;
 import com.coosi29.flatshop.entity.User;
 import com.coosi29.flatshop.model.UserDTO;
+import com.coosi29.flatshop.model.UserPrincipal;
 import com.coosi29.flatshop.service.UserService;
 
 @Service
@@ -56,16 +57,27 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Override
 	public UserDTO findById(long userId) {
-		// TODO Auto-generated method stub
-		return null;
+		User user = userDao.findById(userId);
+		UserDTO userDTO = new UserDTO();
+		userDTO.setUserId(user.getUserId());
+		userDTO.setEmail(user.getEmail());
+		userDTO.setPhone(user.getPhone());
+		userDTO.setAddress(user.getAddress());
+		userDTO.setAvatar(user.getAvatar());
+		userDTO.setFullname(user.getFullname());
+		userDTO.setVerify(user.isVerify());
+		userDTO.setGender(user.isGender());
+		userDTO.setPassword(user.getPassword());
+		userDTO.setRole(user.getRole());
+		return userDTO;
 	}
 
 	@Override
-	public List<UserDTO> findAll() {
-		List<User> users = userDao.findAll();
+	public List<UserDTO> findAll(int pageIndex, int PageSize) {
+		List<User> users = userDao.findAll(pageIndex, PageSize);
 		List<UserDTO> userDTOs = new ArrayList<>();
 		for (User user : users) {
-			UserDTO userDTO = new UserDTO(user.getEmail(), user.getPhone(), user.getPassword(), null);
+			UserDTO userDTO = new UserDTO();
 			userDTO.setUserId(user.getUserId());
 			userDTO.setEmail(user.getEmail());
 			userDTO.setPhone(user.getPhone());
@@ -85,7 +97,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	@Override
 	public UserDTO findByEmailOrPhoneAndPassword(String account, String password, boolean verity) {
 		User user = userDao.findByEmailOrPhoneAndPassword(account, password, verity);
-		UserDTO userDTO = new UserDTO(user.getEmail(), user.getPhone(), user.getPassword(), null);
+		UserDTO userDTO = new UserDTO();
 		userDTO.setUserId(user.getUserId());
 		userDTO.setEmail(user.getEmail());
 		userDTO.setPhone(user.getPhone());
@@ -106,25 +118,28 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 			throw new UsernameNotFoundException("Not Found!");
 		}
 		
-//		UserPrincipal userPrincipal = new UserPrincipal(user.getEmail(), user.getPassword(), user.getEnabled(), true,
-//				true, true, authorities);
 		
 		List<SimpleGrantedAuthority> roleList = new ArrayList<>();
 		
 		roleList.add(new SimpleGrantedAuthority(user.getRole().getRoleName()));
 		
-		UserDTO userDTO = new UserDTO(user.getEmail(), user.getPhone(), user.getPassword(), roleList);
-		userDTO.setUserId(user.getUserId());
-		userDTO.setEmail(user.getEmail());
-		userDTO.setPhone(user.getPhone());
-		userDTO.setAddress(user.getAddress());
-		userDTO.setAvatar(user.getAvatar());
-		userDTO.setFullname(user.getFullname());
-		userDTO.setVerify(user.isVerify());
-		userDTO.setGender(user.isGender());
-		userDTO.setPassword(user.getPassword());
-		userDTO.setRole(user.getRole());
-		return userDTO;
+		UserPrincipal userPrincipal = new UserPrincipal(user.getEmail(), user.getPhone(), user.getPassword(), roleList);
+		userPrincipal.setUserId(user.getUserId());
+		userPrincipal.setEmail(user.getEmail());
+		userPrincipal.setPhone(user.getPhone());
+		userPrincipal.setAddress(user.getAddress());
+		userPrincipal.setAvatar(user.getAvatar());
+		userPrincipal.setFullname(user.getFullname());
+		userPrincipal.setVerify(user.isVerify());
+		userPrincipal.setGender(user.isGender());
+		userPrincipal.setPassword(user.getPassword());
+		userPrincipal.setRole(user.getRole());
+		return userPrincipal;
+	}
+
+	@Override
+	public int count() {
+		return userDao.count();
 	}
 
 
