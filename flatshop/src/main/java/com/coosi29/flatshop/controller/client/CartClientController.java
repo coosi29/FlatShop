@@ -30,7 +30,8 @@ public class CartClientController {
 	private ProductService productService;
 	
 	@GetMapping(value = "/cart")
-	public String cart() {
+	public String cart(HttpServletRequest request) {
+		request.setAttribute("categories", categoryService.findAll());
 		return "client/cart"; 
 	}
 
@@ -68,6 +69,6 @@ public class CartClientController {
 			}
 		}
 
-		return "redirect:/cart";
+		return "redirect:../client/cart";
 	}
 }

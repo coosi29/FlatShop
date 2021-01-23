@@ -54,21 +54,19 @@
 						<div class="panel-heading"
 							style="display: flex; justify-content: space-between;">
 							<h3 class="panel-title">CREATE NEW PRODUCT</h3>
-							<a class="btn btn-warning"
-								href="product-list"
+							<a class="btn btn-warning" href="product-list"
 								style="background-color: #D9534F; padding: 2px 10px; text-decoration: none; border: none; margin-right: 10px; height: 25px;">Back</a>
 						</div>
-						<form th:action="@{/admin/product-create}" method="post"
-							enctype="multipart/form-data">
+						<form action="product-create" method="post">
 							<div class="row"
 								style="display: flex; justify-content: space-between;">
 								<table style="margin: auto; margin-left: 60px;" class="col-md-6">
 									<tr>
 										<th>Category:</th>
 										<td><select name="categoryId">
-												<option th:each="category : ${categories}"
-													th:text="${category.categoryName}"
-													th:value="${category.categoryId}">Vans old skool</option>
+												<c:forEach items="${categories}" var="category">
+													<option value="${category.categoryId}">${category.categoryName}</option>
+												</c:forEach>
 										</select></td>
 									</tr>
 									<tr>
@@ -115,9 +113,9 @@
 									<tr>
 										<th>Sale code:</th>
 										<td><select name="saleId">
-												<option th:each="sale : ${sales}"
-													th:text="${sale.salePercent} + '%'"
-													th:value="${sale.saleId}"></option>
+												<c:forEach items="${sales}" var="sale">
+													<option value="${sale.saleId}">${sale.salePercent}%</option>
+												</c:forEach>
 										</select> <a style="margin-left: 10px;" href="">More sale code</a></td>
 									</tr>
 									<tr>

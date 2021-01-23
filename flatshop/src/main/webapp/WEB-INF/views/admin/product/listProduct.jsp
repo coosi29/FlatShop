@@ -44,14 +44,14 @@
 		<jsp:include page="../common/category.jsp" />
 		<!-- MAIN -->
 		<!-- MAIN CONTENT -->
-		<form th:action="@{/admin/product-delete}" method="get">
+		<form action="product-delete" method="get">
 			<div class="main">
 				<div class="main-content">
 					<div class="container-fluid">
 						<!-- OVERVIEW -->
 						<div class="panel panel-headline">
 							<div class="panel-body">
-								<form action="" method="get">
+								<form action="product-delete" method="get">
 									<div class="row">
 										<div class="col-md-12">
 											<div class="panel">
@@ -111,7 +111,7 @@
 																<tr>
 																	<td style="vertical-align: middle;"><input
 																		class="checkbox" type="checkbox" name="productId"
-																		value="" id="${loop.count}" style="cursor: pointer;"/></td>
+																		value="${product.productId}" id="${loop.count}" style="cursor: pointer;"/></td>
 																	<td style="vertical-align: middle;">${product.productId}</td>
 																	<td style="vertical-align: middle;">${product.productName}</td>
 																	<td style="vertical-align: middle;"><span

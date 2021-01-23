@@ -23,8 +23,7 @@ public class ProductDaoImpl implements ProductDao{
 	
 	@Override
 	public void insert(Product product) {
-		// TODO Auto-generated method stub
-		
+		sessionFactory.getCurrentSession().save(product);
 	}
 
 	@Override
@@ -36,6 +35,8 @@ public class ProductDaoImpl implements ProductDao{
 	@Override
 	public void delete(long productId) {
 		// TODO Auto-generated method stub
+		Product product = findById(productId);
+		sessionFactory.getCurrentSession().delete(product);
 		
 	}
 

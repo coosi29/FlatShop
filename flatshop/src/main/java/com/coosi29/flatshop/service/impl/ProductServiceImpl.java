@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.coosi29.flatshop.dao.ProductDao;
+import com.coosi29.flatshop.entity.Category;
 import com.coosi29.flatshop.entity.Product;
+import com.coosi29.flatshop.entity.Sale;
 import com.coosi29.flatshop.model.CategoryDTO;
 import com.coosi29.flatshop.model.ProductDTO;
 import com.coosi29.flatshop.model.SaleDTO;
@@ -24,8 +26,21 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public void insert(ProductDTO productDTO) {
-		// TODO Auto-generated method stub
+		Product product = new Product();
+		Category category = new Category();
+		category.setCategoryId(productDTO.getCategoryDTO().getCategoryId());
+		Sale sale = new Sale();
+		sale.setSaleId(productDTO.getSaleDTO().getSaleId());
+		product.setProductId(productDTO.getProductId());
+		product.setProductName(productDTO.getProductName());
+		product.setImage(productDTO.getImage());
+		product.setDescription(productDTO.getDescription());
+		product.setPrice(productDTO.getPrice());
+		product.setQuantity(productDTO.getQuantity());
+		product.setSale(sale);
+		product.setCategory(category);
 		
+		productDao.insert(product);
 	}
 
 	@Override
@@ -37,7 +52,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void delete(long productId) {
 		// TODO Auto-generated method stub
-		
+		productDao.delete(productId);
 	}
 
 	@Override

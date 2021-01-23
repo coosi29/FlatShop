@@ -7,6 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	Product
+	<form action="test" method="post">
+	Input: <input type="text" name="name">
+	<button type="submit">Submit</button>
+	</form>
+	<p>${name}</p>
 </body>
 </html>

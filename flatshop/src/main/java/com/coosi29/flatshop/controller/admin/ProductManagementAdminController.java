@@ -1,14 +1,24 @@
 package com.coosi29.flatshop.controller.admin;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.coosi29.flatshop.model.CategoryDTO;
+import com.coosi29.flatshop.model.ProductDTO;
+import com.coosi29.flatshop.model.SaleDTO;
 import com.coosi29.flatshop.service.CategoryService;
 import com.coosi29.flatshop.service.ProductService;
 import com.coosi29.flatshop.service.SaleService;
@@ -80,8 +90,51 @@ public class ProductManagementAdminController {
 	// Create new product
 	
 	@GetMapping(value = "/product-create")
-	public String insert() {
+	public String insert(HttpServletRequest request) {
+		request.setAttribute("categories", categoryService.findAll());
+		request.setAttribute("sales", saleService.findAll());
 		return "admin/product/createNewProduct";
+	}
+	
+	@PostMapping(value = "/product-create")
+	public String insertPost(HttpServletRequest request, @RequestParam(name = "categoryId") long categoryId,
+			@RequestParam(name = "productName") String productName,
+			@RequestParam(name = "description") String description,
+			@RequestParam(name = "price") float price,
+			@RequestParam(name = "quantity") int quantity,
+			@RequestParam(name = "saleId") String saleId) {
+		CategoryDTO categoryDTO = new CategoryDTO();
+		categoryDTO.setCategoryId(categoryId);
+		SaleDTO saleDTO = new SaleDTO();
+		saleDTO.setSaleId(saleId);
+		ProductDTO productDTO = new ProductDTO();
+		productDTO.setCategoryDTO(categoryDTO);
+		productDTO.setSaleDTO(saleDTO);
+		productDTO.setProductName(productName);
+		productDTO.setDescription(description);
+		productDTO.setPrice(price);
+		productDTO.setQuantity(quantity);
+//		if (imageFile != null && imageFile.getSize() > 0) {
+//			String originalFilename = imageFile.getOriginalFilename();
+//			int lastIndex = originalFilename.lastIndexOf(".");
+//			String ext = originalFilename.substring(lastIndex);
+//			String avatarFilename = System.currentTimeMillis() + ext;
+//			File newfile = new File("C:\\image_spring_boot\\" + avatarFilename);
+//			FileOutputStream fileOutputStream;
+//			try {
+//				fileOutputStream = new FileOutputStream(newfile);
+//				fileOutputStream.write(imageFile.getBytes());
+//				fileOutputStream.close();
+//			} catch (FileNotFoundException e) {
+//				e.printStackTrace();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//			productDTO.setImage(avatarFilename);
+//		}
+		
+		productService.insert(productDTO);
+		return "redirect:../admin/product-list";
 	}
 	
 	
@@ -93,5 +146,16 @@ public class ProductManagementAdminController {
 		request.setAttribute("sales", saleService.findAll());
 		request.setAttribute("categories", categoryService.findAll());
 		return "admin/product/updateProduct";
+	}
+	
+	// Delete Product
+	
+	@GetMapping(value = "/product-delete")
+	public String delete(HttpServletRequest request) {
+		String[] productIds = request.getParameterValues("productId");
+		for (String productId : productIds) {
+			productService.delete(Long.parseLong(productId));
+		}
+		return "redirect:../admin/product-list";
 	}
 }
