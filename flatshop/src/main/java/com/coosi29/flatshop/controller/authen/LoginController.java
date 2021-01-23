@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,9 @@ public class LoginController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private MailSender mailSender;
 	
 	@GetMapping(value = "/login")
 	public String login(HttpServletRequest request, @RequestParam(name = "err", required = false) String err) {
@@ -43,6 +48,16 @@ public class LoginController {
 	@GetMapping(value = "/logout")
 	public String logout() {
 		return "redirect:/login";
+	}
+	
+	public void sendEmail(String from, String to, String subject, String content) {
+		SimpleMailMessage mailMessage =  new SimpleMailMessage();
+		mailMessage.setFrom(from);
+		mailMessage.setTo(to);
+		mailMessage.setSubject(subject);
+		mailMessage.setText(content);
+		
+		mailSender.send(mailMessage);
 	}
 	
 //	@PostMapping(value = "/login")

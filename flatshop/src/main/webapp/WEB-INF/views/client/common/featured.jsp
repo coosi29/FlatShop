@@ -61,14 +61,8 @@
 								</c:if>
 
 								<div class="button_group">
-									<c:if test="${sessionScope.user == null}">
-										<a class="button add-cart" type="button" href="../login">Add
-											To Cart</a>
-									</c:if>
-									<c:if test="${sessionScope.user != null}">
 										<a class="button add-cart" type="button" href="add-to-cart?productId=${product.productId}">Add
 											To Cart</a>
-									</c:if>
 									<button class="button compare" type="button">
 										<i class="fa fa-exchange"></i>
 									</button>
@@ -110,14 +104,8 @@
 								</c:if>
 
 								<div class="button_group">
-									<c:if test="${sessionScope.user == null}">
-										<a class="button add-cart" type="button" href="../login">Add
-											To Cart</a>
-									</c:if>
-									<c:if test="${sessionScope.user != null}">
 										<a class="button add-cart" type="button" href="add-to-cart?productId=${product.productId}">Add
 											To Cart</a>
-									</c:if>
 									<button class="button compare" type="button">
 										<i class="fa fa-exchange"></i>
 									</button>

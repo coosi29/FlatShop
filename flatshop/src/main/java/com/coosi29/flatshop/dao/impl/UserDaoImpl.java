@@ -59,7 +59,7 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User loadUserByUsername(String account) {
-		String sql = "SELECT u FROM User u WHERE u.email = '" + account + "' or u.phone = '" + account + "'";
+		String sql = "SELECT u FROM User u WHERE (u.email = '" + account + "' or u.phone = '" + account + "')" + " and u.verify = true";
 		Query query = sessionFactory.getCurrentSession().createQuery(sql);
 		return (User) query.uniqueResult();
 	}
