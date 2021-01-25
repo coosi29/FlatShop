@@ -87,7 +87,7 @@
 								</form>
 							</li>
 
-							<li class="option-cart""><a th:href="@{/login}"
+							<li class="option-cart""><a href="cart"
 								class="cart-icon">cart <span class="cart_no">02</span></a></li>
 
 							<!--                            <li class="option-cart" sec:authorize="isAuthenticated()">

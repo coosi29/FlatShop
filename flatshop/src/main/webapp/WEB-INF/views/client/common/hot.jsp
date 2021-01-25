@@ -49,7 +49,7 @@
 								<c:if test="${product.saleDTO.salePercent == 0}">
 									<span class="price"
 										style="font-size: 15px; color: black; text-decoration: line-through; margin-bottom: 0px; margin-top: -5px;">.</span>
-										<span class="price">$${product.price - (product.price *
+									<span class="price">$${product.price - (product.price *
 										product.saleDTO.salePercent / 100)}0</span>
 								</c:if>
 
@@ -60,8 +60,10 @@
 										product.saleDTO.salePercent / 100)}0</span>
 								</c:if>
 								<div class="button_group">
-										<a class="button add-cart" type="button" href="add-to-cart?productId=${product.productId}">Add
-											To Cart</a>
+									<a class="button add-cart" type="button"
+										href="add-to-cart?productId=${product.productId}">Add To
+										Cart</a>
+
 									<button class="button compare" type="button">
 										<i class="fa fa-exchange"></i>
 									</button>
@@ -90,7 +92,7 @@
 								<c:if test="${product.saleDTO.salePercent == 0}">
 									<span class="price"
 										style="font-size: 15px; color: black; text-decoration: line-through; margin-bottom: 0px; margin-top: -5px;">.</span>
-										<span class="price">$${product.price - (product.price *
+									<span class="price">$${product.price - (product.price *
 										product.saleDTO.salePercent / 100)}0</span>
 								</c:if>
 
@@ -102,8 +104,10 @@
 								</c:if>
 
 								<div class="button_group">
-										<a class="button add-cart" type="button" href="add-to-cart?productId=${product.productId}">Add
-											To Cart</a>
+									<a class="button add-cart" type="button"
+										href="add-to-cart?productId=${product.productId}">Add To
+										Cart</a>
+
 									<button class="button compare" type="button">
 										<i class="fa fa-exchange"></i>
 									</button>
@@ -119,14 +123,14 @@
 		</ul>
 	</div>
 	<!-- Bootstrap core JavaScript==================================================-->
-<!-- 	<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script> -->
-<!-- 	<script type="text/javascript" src="js/jquery.easing.1.3.js"></script> -->
-<!-- 	<script type="text/javascript" src="js/bootstrap.min.js"></script> -->
-<!-- 	<script type="text/javascript" src="js/jquery.sequence-min.js"></script> -->
-<!-- 	<script type="text/javascript" -->
-<!-- 		src="js/jquery.carouFredSel-6.2.1-packed.js"></script> -->
-<!-- 	<script defer src="js/jquery.flexslider.js"></script> -->
-<!-- 	<script type="text/javascript" src="js/script.min.js"></script> -->
+	<!-- 	<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script> -->
+	<!-- 	<script type="text/javascript" src="js/jquery.easing.1.3.js"></script> -->
+	<!-- 	<script type="text/javascript" src="js/bootstrap.min.js"></script> -->
+	<!-- 	<script type="text/javascript" src="js/jquery.sequence-min.js"></script> -->
+	<!-- 	<script type="text/javascript" -->
+	<!-- 		src="js/jquery.carouFredSel-6.2.1-packed.js"></script> -->
+	<!-- 	<script defer src="js/jquery.flexslider.js"></script> -->
+	<!-- 	<script type="text/javascript" src="js/script.min.js"></script> -->
 </body>
 
 </html>

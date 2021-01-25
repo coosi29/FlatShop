@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="shortcut icon" href="images/favicon.png">
+<link rel="shortcut icon" href="../resource/client/images/favicon.png">
 <title>Welcome to FlatShop</title>
 <link href="../resource/client/css/bootstrap.css" rel="stylesheet">
 <link
@@ -49,13 +49,13 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach items="${carts}" var="product">
+										<c:forEach items="${sessionScope.cart}" var="cart">
 											<tr>
-												<td><img src="../download?image=${product.image}"
+												<td><img src="../download?image=${cart.value.productDTO.image}"
 													alt=""></td>
 												<td>
 													<div class="shop-details">
-														<div class="productname">${product.productName}</div>
+														<div class="productname">${cart.value.productDTO.productName}</div>
 														<p>
 															<img alt="" src="../resource/client/images/star.png">
 															<a class="review_num" href="#"> 02 Review(s) </a>
@@ -63,32 +63,32 @@
 
 														<p>${product.description}</p>
 														<p>
-															Sale : <strong class="pcode">-${product.saleDTO.salePercent}%</strong>
+															Sale : <strong class="pcode">-${cart.value.productDTO.saleDTO.salePercent}%</strong>
 														</p>
 														<p>
-															Product Code : <strong class="pcode">${product.productId}</strong>
+															Product Code : <strong class="pcode">${cart.value.productDTO.productId}</strong>
 														</p>
 													</div>
 												</td>
 												<td>
-													<h5 style="color: #41B314; font-weight: bold;">$${(product.price
-														- (product.price * product.saleDTO.salePercent / 100))}0</h5> <c:if
-														test="${product.saleDTO.salePercent > 0}">
-														<p style="font-size: 16px; padding-top: 7px; text-decoration: line-through;">$${product.price}0</p>
+													<h5 style="color: #41B314; font-weight: bold;">$${(cart.value.productDTO.price
+														- (cart.value.productDTO.price * cart.value.productDTO.saleDTO.salePercent / 100))}0</h5> <c:if
+														test="${cart.value.productDTO.saleDTO.salePercent > 0}">
+														<p style="font-size: 16px; padding-top: 7px; text-decoration: line-through;">$${cart.value.productDTO.price}0</p>
 													</c:if>
 												</td>
 												<td><select name="">
-														<option selected th:text="${cart.quantity}"></option>
+														<option>${cart.value.quantity}</option>
 												</select></td>
 												<td>
 													<h5>
-														<strong class="red"
-															th:text="'$' + ${(cart.product.price - (cart.product.price * cart.product.sale.salePercent / 100)) * cart.quantity} + '0'">
+														<strong class="red">
+														$${((cart.value.productDTO.price
+														- (cart.value.productDTO.price * cart.value.productDTO.saleDTO.salePercent / 100))) * cart.value.quantity}0
 														</strong>
 													</h5>
 												</td>
-												<td><a
-													th:href="@{'/client/cart-delete?cartId=' + ${cart.cartId}}">
+												<td><a href="">
 														<img src="../resource/client/images/remove.png" alt="">
 												</a></td>
 											</tr>
@@ -96,7 +96,7 @@
 									</tbody>
 									<tfoot>
 										<tr>
-											<td colspan="6"><a th:href="@{/client/home}"><button
+											<td colspan="6"><a href="home"><button
 														class="pull-left">Continue Shopping</button></a>
 												<button class=" pull-right">Update Shopping Cart</button></td>
 										</tr>

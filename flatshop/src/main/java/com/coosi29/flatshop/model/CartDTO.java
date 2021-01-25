@@ -1,30 +1,38 @@
 package com.coosi29.flatshop.model;
 
 public class CartDTO {
-
-	private int id;
+	
+	private long cartId;
+	private UserDTO userDTO;
 	private ProductDTO productDTO;
 	private int quantity;
-	private float priceTotal;
 	
 	public CartDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CartDTO(int id, ProductDTO productDTO, int quantity, float priceTotal) {
+	public CartDTO(long cartId, UserDTO userDTO, ProductDTO productDTO, int quantity) {
 		super();
-		this.id = id;
+		this.cartId = cartId;
+		this.userDTO = userDTO;
 		this.productDTO = productDTO;
 		this.quantity = quantity;
-		this.priceTotal = priceTotal;
 	}
 
-	public int getId() {
-		return id;
+	public long getCartId() {
+		return cartId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setCartId(long cartId) {
+		this.cartId = cartId;
+	}
+
+	public UserDTO getUserDTO() {
+		return userDTO;
+	}
+
+	public void setUserDTO(UserDTO userDTO) {
+		this.userDTO = userDTO;
 	}
 
 	public ProductDTO getProductDTO() {
@@ -42,14 +50,7 @@ public class CartDTO {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-
-	public float getPriceTotal() {
-		return priceTotal;
-	}
-
-	public void setPriceTotal(float priceTotal) {
-		this.priceTotal = priceTotal;
-	}
+	
 	
 	
 }

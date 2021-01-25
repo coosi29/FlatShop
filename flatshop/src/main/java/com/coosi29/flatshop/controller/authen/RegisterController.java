@@ -37,7 +37,7 @@ public class RegisterController {
 		userDTO.setPassword(new BCryptPasswordEncoder().encode(password));
 		userService.insert(userDTO);
 		
-		sendEmail("truonganvu2000@gmail.com", "coosi29@gmail.com", "Hello", "Xin Chao, Xac nhan de co the dang nhap tren FlatShop!");
+		sendEmail("coosi29@gmail.com", "quanghvhe140233@fpt.edu.vn", "Hello", "Xin Chao, " + email.split("@")[0] + "! Vui long xac nhan de co the dang nhap tren FlatShop!");
 		return "authen/login";
 	}
 	
