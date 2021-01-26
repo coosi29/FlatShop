@@ -51,7 +51,8 @@
 									<tbody>
 										<c:forEach items="${sessionScope.cart}" var="cart">
 											<tr>
-												<td><img src="../download?image=${cart.value.productDTO.image}"
+												<td><img
+													src="../download?image=${cart.value.productDTO.image}"
 													alt=""></td>
 												<td>
 													<div class="shop-details">
@@ -72,23 +73,35 @@
 												</td>
 												<td>
 													<h5 style="color: #41B314; font-weight: bold;">$${(cart.value.productDTO.price
-														- (cart.value.productDTO.price * cart.value.productDTO.saleDTO.salePercent / 100))}0</h5> <c:if
+														- (cart.value.productDTO.price *
+														cart.value.productDTO.saleDTO.salePercent / 100))}0</h5> <c:if
 														test="${cart.value.productDTO.saleDTO.salePercent > 0}">
-														<p style="font-size: 16px; padding-top: 7px; text-decoration: line-through;">$${cart.value.productDTO.price}0</p>
+														<p
+															style="font-size: 16px; padding-top: 7px; text-decoration: line-through;">$${cart.value.productDTO.price}0</p>
 													</c:if>
 												</td>
-												<td><select name="">
-														<option>${cart.value.quantity}</option>
-												</select></td>
+												<td>
+												<form action="add-to-cart" method="post">
+												<select name="quantity" onchange="this.form.submit()">
+														<c:forEach begin="1" end="5" var="i">
+															<option
+																<c:if test="${cart.value.quantity == i}">
+														selected="selected"
+														</c:if>
+																value="${i}">${i}</option>
+														</c:forEach>
+														<input type="hidden" value="${cart.value.productDTO.productId}" name="productId"/>
+												</select>
+												</form>
+												</td>
 												<td>
 													<h5>
 														<strong class="red">
-														$${((cart.value.productDTO.price
-														- (cart.value.productDTO.price * cart.value.productDTO.saleDTO.salePercent / 100))) * cart.value.quantity}0
-														</strong>
+															$${cart.value.unitPrice * cart.value.quantity}0 </strong>
 													</h5>
 												</td>
-												<td><a href="">
+												<td><a
+													href="delete-from-cart?productId=${cart.value.productDTO.productId}">
 														<img src="../resource/client/images/remove.png" alt="">
 												</a></td>
 											</tr>
@@ -108,14 +121,16 @@
 										<div class="shippingbox">
 											<h5>Estimate Shipping And Tax</h5>
 											<form>
-												<label> Select Country * </label> <select class="">
-
-												</select> <label> State / Province * </label> <select class="">
-
-												</select> <label> Zip / Post Code * </label>
+												<label> Address * </label> 
+												<select class="">
+													<option>FPT University - Thach That - Ha Noi</option>
+												</select> <label> Phone number * </label>
+												<select class="">
+													<option>032-063-9462</option>
+												</select> <label> Change of shipping address * </label>
 
 												<div class="clearfix"></div>
-												<button>Get A Qoute</button>
+												<button>Go To Profile</button>
 											</form>
 										</div>
 									</div>
@@ -134,7 +149,7 @@
 										<div class="shippingbox">
 											<div class="subtotal">
 												<h5>Sub Total</h5>
-												<span th:text="'$' + ${totalAmount} + '0'"></span>
+												<span>$${sessionScope.subTotal}0</span>
 											</div>
 											<div class="subtotal">
 												<h5>Shipping Fee</h5>
@@ -142,9 +157,16 @@
 											</div>
 											<div class="grandtotal">
 												<h5>GRAND TOTAL</h5>
-												<span th:text="'$' + ${totalAmount + 5} + '0'"></span>
+												<span>$${sessionScope.grandTotal}0</span>
 											</div>
-											<button>Process To Checkout</button>
+											<c:if test="${sessionScope.user != null}">
+											<form action="checkout" method="post">
+												<button type="submit">Process To Checkout</button>
+											</form>
+											</c:if>
+											<c:if test="${sessionScope.user == null}">
+												 <a href="../login"><button>Process To Checkout</button></a>
+											</c:if>
 										</div>
 									</div>
 								</div>
@@ -161,14 +183,18 @@
 		<jsp:include page="common/footer.jsp" />
 	</div>
 	<!-- Bootstrap core JavaScript==================================================-->
-	<script type="text/javascript" src="../resource/client/js/jquery-1.10.2.min.js"></script>
-	<script type="text/javascript" src="../resource/client/js/jquery.easing.1.3.js"></script>
-	<script type="text/javascript" src="../resource/client/js/bootstrap.min.js"></script>
+	<script type="text/javascript"
+		src="../resource/client/js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript"
+		src="../resource/client/js/jquery.easing.1.3.js"></script>
+	<script type="text/javascript"
+		src="../resource/client/js/bootstrap.min.js"></script>
 	<script type="text/javascript"
 		src="../resource/client/js/jquery.sequence-min.js"></script>
 	<script type="text/javascript"
 		src="../resource/client/js/jquery.carouFredSel-6.2.1-packed.js"></script>
 	<script defer src="../resource/client/js/jquery.flexslider.js"></script>
-	<script type="text/javascript" src="../resource/client/js/script.min.js"></script>
+	<script type="text/javascript"
+		src="../resource/client/js/script.min.js"></script>
 </body>
 </html>

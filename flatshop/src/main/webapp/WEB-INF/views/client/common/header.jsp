@@ -88,7 +88,7 @@
 							</li>
 
 							<li class="option-cart""><a href="cart"
-								class="cart-icon">cart <span class="cart_no">02</span></a></li>
+								class="cart-icon">cart <span class="cart_no">${sessionScope.totalQuantity}</span></a></li>
 
 							<!--                            <li class="option-cart" sec:authorize="isAuthenticated()">
                               <a th:href="@{/client/cart-load}" class="cart-icon">cart <span class="cart_no">02</span></a>

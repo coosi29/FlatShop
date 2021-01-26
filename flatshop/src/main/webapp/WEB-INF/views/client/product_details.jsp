@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="shortcut icon" href="../resource/client/images/favicon.png">mages/favicon.png">
+<link rel="shortcut icon" href="../resource/client/images/favicon.png">
 <title>Welcome to FlatShop</title>
 <link href="../resource/client/css/bootstrap.css" rel="stylesheet">
 <link
@@ -29,8 +29,6 @@
 
 		<div class="container_fullwidth">
 			<div class="container">
-
-
 				<div class="row">
 					<div class="col-md-9">
 						<div class="products-details">
@@ -76,7 +74,7 @@
 											$${product.price}0  </sup> </span>
 								</div>
 								<hr class="border">
-								<form th:action="@{/client/cart-add}" method="get">
+								<form action="add-to-cart" method="post">
 									<div class="wided">
 										<div class="qty">
 											Qantity &nbsp;&nbsp;: <select name="quantity">
