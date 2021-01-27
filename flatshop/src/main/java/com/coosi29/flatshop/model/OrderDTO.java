@@ -1,6 +1,7 @@
 package com.coosi29.flatshop.model;
 
 import java.sql.Date;
+import java.util.List;
 
 public class OrderDTO {
 
@@ -9,18 +10,21 @@ public class OrderDTO {
 	private Date buyDate;
 	private float priceTotal;
 	private String status;
+	List<ItemDTO> itemDTOs;
 	
 	public OrderDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public OrderDTO(long orderId, UserDTO userDTO, Date buyDate, float priceTotal, String status) {
+	public OrderDTO(long orderId, UserDTO userDTO, Date buyDate, float priceTotal, String status,
+			List<ItemDTO> itemDTOs) {
 		super();
 		this.orderId = orderId;
 		this.userDTO = userDTO;
 		this.buyDate = buyDate;
 		this.priceTotal = priceTotal;
 		this.status = status;
+		this.itemDTOs = itemDTOs;
 	}
 
 	public long getOrderId() {
@@ -61,6 +65,14 @@ public class OrderDTO {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public List<ItemDTO> getItemDTOs() {
+		return itemDTOs;
+	}
+
+	public void setItemDTOs(List<ItemDTO> itemDTOs) {
+		this.itemDTOs = itemDTOs;
 	}
 	
 	
