@@ -102,7 +102,8 @@ public class ProductManagementAdminController {
 			@RequestParam(name = "description") String description,
 			@RequestParam(name = "price") float price,
 			@RequestParam(name = "quantity") int quantity,
-			@RequestParam(name = "saleId") String saleId) {
+			@RequestParam(name = "saleId") String saleId,
+			@RequestParam(name = "imageFile") MultipartFile imageFile) {
 		CategoryDTO categoryDTO = new CategoryDTO();
 		categoryDTO.setCategoryId(categoryId);
 		SaleDTO saleDTO = new SaleDTO();
@@ -114,24 +115,24 @@ public class ProductManagementAdminController {
 		productDTO.setDescription(description);
 		productDTO.setPrice(price);
 		productDTO.setQuantity(quantity);
-//		if (imageFile != null && imageFile.getSize() > 0) {
-//			String originalFilename = imageFile.getOriginalFilename();
-//			int lastIndex = originalFilename.lastIndexOf(".");
-//			String ext = originalFilename.substring(lastIndex);
-//			String avatarFilename = System.currentTimeMillis() + ext;
-//			File newfile = new File("C:\\image_spring_boot\\" + avatarFilename);
-//			FileOutputStream fileOutputStream;
-//			try {
-//				fileOutputStream = new FileOutputStream(newfile);
-//				fileOutputStream.write(imageFile.getBytes());
-//				fileOutputStream.close();
-//			} catch (FileNotFoundException e) {
-//				e.printStackTrace();
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//			productDTO.setImage(avatarFilename);
-//		}
+		if (imageFile != null && imageFile.getSize() > 0) {
+			String originalFilename = imageFile.getOriginalFilename();
+			int lastIndex = originalFilename.lastIndexOf(".");
+			String ext = originalFilename.substring(lastIndex);
+			String avatarFilename = System.currentTimeMillis() + ext;
+			File newfile = new File("C:\\image_spring_boot\\" + avatarFilename);
+			FileOutputStream fileOutputStream;
+			try {
+				fileOutputStream = new FileOutputStream(newfile);
+				fileOutputStream.write(imageFile.getBytes());
+				fileOutputStream.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			productDTO.setImage(avatarFilename);
+		}
 		
 		productService.insert(productDTO);
 		return "redirect:../admin/product-list";
@@ -146,6 +147,60 @@ public class ProductManagementAdminController {
 		request.setAttribute("sales", saleService.findAll());
 		request.setAttribute("categories", categoryService.findAll());
 		return "admin/product/updateProduct";
+	}
+	
+	@PostMapping(value = "/product-update")
+	public String update(HttpServletRequest request,
+			@RequestParam(name = "newPrice", required = false) String newPrice,
+			@RequestParam(name = "imageFile", required = false) MultipartFile imageFile) {
+		long productId = Long.parseLong(request.getParameter("productId"));
+		long categoryId = Long.parseLong(request.getParameter("categoryId")); 
+		float oldprice = Float.parseFloat(request.getParameter("oldPrice"));
+		String productName = request.getParameter("productName");
+		String description = request.getParameter("description");
+		int quantity = Integer.parseInt(request.getParameter("quantity"));
+		String image = request.getParameter("image");
+		String saleId = request.getParameter("saleId");
+		
+		SaleDTO saleDTO = new SaleDTO();
+		saleDTO.setSaleId(saleId);
+		CategoryDTO categoryDTO = new CategoryDTO();
+		categoryDTO.setCategoryId(categoryId);
+		ProductDTO productDTO = new ProductDTO();
+		productDTO.setProductId(productId);
+		productDTO.setSaleDTO(saleDTO);
+		productDTO.setCategoryDTO(categoryDTO);
+		productDTO.setProductName(productName);
+		productDTO.setDescription(description);
+		productDTO.setQuantity(quantity);
+		if (newPrice == null || newPrice.equals("")) {
+			productDTO.setPrice(oldprice);
+		} else {
+			productDTO.setPrice(Float.parseFloat(newPrice));
+		}
+		if (imageFile != null && imageFile.getSize() > 0) {
+			String originalFilename = imageFile.getOriginalFilename();
+			int lastIndex = originalFilename.lastIndexOf(".");
+			String ext = originalFilename.substring(lastIndex);
+			String avatarFilename = System.currentTimeMillis() + ext;
+			File newfile = new File("C:\\image_spring_boot\\" + avatarFilename);
+			FileOutputStream fileOutputStream;
+			try {
+				fileOutputStream = new FileOutputStream(newfile);
+				fileOutputStream.write(imageFile.getBytes());
+				fileOutputStream.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			productDTO.setImage(avatarFilename);
+		} else {
+			productDTO.setImage(image);
+		}
+		
+		productService.update(productDTO);
+		return "redirect:/admin/product-list";
 	}
 	
 	// Delete Product

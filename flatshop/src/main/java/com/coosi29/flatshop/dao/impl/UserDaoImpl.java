@@ -22,20 +22,19 @@ public class UserDaoImpl implements UserDao {
 	
 	@Override
 	public void insert(User user) {
-		// TODO Auto-generated method stub
 		sessionFactory.getCurrentSession().save(user);
 	}
 
 	@Override
 	public void update(User user) {
-		// TODO Auto-generated method stub
-		
+		sessionFactory.getCurrentSession().merge(user);
 	}
 
 	@Override
 	public void delete(long userId) {
 		// TODO Auto-generated method stub
-		
+		User user = findById(userId);
+		sessionFactory.getCurrentSession().delete(user);
 	}
 
 	@Override
@@ -70,6 +69,13 @@ public class UserDaoImpl implements UserDao {
 		Query query = sessionFactory.getCurrentSession().createQuery(sql);
 		long count = (long) query.uniqueResult();
 		return (int) count;
+	}
+
+	@Override
+	public User findByEmail(String email) {
+		String sql = "SELECT u FROM User u WHERE u.email = '" + email + "'";
+		Query query = sessionFactory.getCurrentSession().createQuery(sql);
+		return (User) query.uniqueResult();
 	}
 
 }

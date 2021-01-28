@@ -45,8 +45,21 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public void update(ProductDTO productDTO) {
-		// TODO Auto-generated method stub
+		Product product = new Product();
+		Category category = new Category();
+		category.setCategoryId(productDTO.getCategoryDTO().getCategoryId());
+		Sale sale = new Sale();
+		sale.setSaleId(productDTO.getSaleDTO().getSaleId());
+		product.setProductId(productDTO.getProductId());
+		product.setProductName(productDTO.getProductName());
+		product.setImage(productDTO.getImage());
+		product.setDescription(productDTO.getDescription());
+		product.setPrice(productDTO.getPrice());
+		product.setQuantity(productDTO.getQuantity());
+		product.setSale(sale);
+		product.setCategory(category);
 		
+		productDao.update(product);
 	}
 
 	@Override

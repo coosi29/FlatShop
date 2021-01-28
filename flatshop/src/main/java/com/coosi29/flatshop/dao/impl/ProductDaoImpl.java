@@ -28,13 +28,11 @@ public class ProductDaoImpl implements ProductDao{
 
 	@Override
 	public void update(Product product) {
-		// TODO Auto-generated method stub
-		
+		sessionFactory.getCurrentSession().merge(product);
 	}
 
 	@Override
 	public void delete(long productId) {
-		// TODO Auto-generated method stub
 		Product product = findById(productId);
 		sessionFactory.getCurrentSession().delete(product);
 		

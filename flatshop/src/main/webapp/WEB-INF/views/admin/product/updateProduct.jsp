@@ -57,7 +57,7 @@
 							<a class="btn btn-warning" href="product-list"
 								style="background-color: #D9534F; padding: 2px 10px; text-decoration: none; border: none; margin-right: 10px; height: 25px;">Back</a>
 						</div>
-						<form th:action="@{/admin/product-create}" method="post"
+						<form action="product-update" method="post"
 							enctype="multipart/form-data">
 							<div class="row"
 								style="display: flex; justify-content: space-between;">
@@ -80,7 +80,9 @@
 										<td><input type="text" class="form-control"
 											required="required" style="height: 30px;"
 											placeholder="Enter product name..." name="productName"
-											value="${product.productName}" /></td>
+											value="${product.productName}" />
+											<input type="hidden" name="productId" value="${product.productId}">
+											</td>
 									</tr>
 									<tr>
 										<th>Description:</th>
@@ -102,9 +104,11 @@
 									class="col-md-6">
 									<tr>
 										<th>Price:</th>
-										<td><input type="text" class="form-control"
-											required="required" style="height: 30px; width: 230px;"
-											placeholder="$${product.price}0" name="price" /></td>
+										<td><input type="text" class="form-control" 
+											style="height: 30px; width: 230px;"
+											placeholder="$${product.price}0" name="newPrice" />
+											<input type="hidden" name="oldPrice" value="${product.price}">
+											</td>
 									</tr>
 									<tr>
 										<th>Quantity:</th>
@@ -116,8 +120,9 @@
 										<th>Image:</th>
 										<td><img src="../download?image=${product.image}"
 											style="width: 20%; margin-top: -20px;"> <input
-											type="hidden" name="image" value="${product.image}" /> <input
-											type="file" name="imageFile" />
+											type="hidden" name="image" value="${product.image}" /> 
+											<input type="file" name="imageFile" />
+											<input type="hidden" name="image" value="${product.image}">
 									</tr>
 									<tr>
 										<th>Sale code:</th>
@@ -135,7 +140,7 @@
 										<th></th>
 										<td>
 											<button type="submit" class="btn btn-primary"
-												style="font-weight: bold;">CREATE</button>
+												style="font-weight: bold;">UPDATE</button>
 										</td>
 									</tr>
 									<tr>

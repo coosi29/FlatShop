@@ -53,7 +53,7 @@
 					<!-- OVERVIEW -->
 					<div class="panel panel-headline">
 						<div class="panel-body">
-							<form th:action="@{/admin/user-delete}" method="get">
+							<form action="user-delete" method="get">
 								<div class="row">
 									<div class="col-md-12">
 										<div class="panel">
@@ -91,7 +91,7 @@
 															<tr>
 																<td style="vertical-align: middle;"><input
 																	class="checkbox" type="checkbox" name="userId" 
-																	value="" id="${loop.count}"
+																	value="${user.userId}" id="${loop.count}"
 																	style="cursor: pointer;" /></td>
 																<td style="vertical-align: middle;">${user.userId}</td>
 																<td style="vertical-align: middle;"><img src="../download?image=${user.avatar}"
@@ -107,7 +107,7 @@
 																		<c:otherwise>Female</c:otherwise>
 																	</c:choose>
 																</td>
-																<td style="vertical-align: middle;">${user.role.roleName}</td>
+																<td style="vertical-align: middle;">${user.roleDTO.roleName}</td>
 																<td style="vertical-align: middle;"><a href="user-update?userId=${user.userId}">
 																		<span class="label label-warning"
 																		style="font-size: 15px;">Update</span>

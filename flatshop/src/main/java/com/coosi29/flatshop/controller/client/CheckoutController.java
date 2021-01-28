@@ -1,10 +1,6 @@
 package com.coosi29.flatshop.controller.client;
 
 import java.sql.Date;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -37,43 +33,35 @@ public class CheckoutController {
 	@PostMapping(value = "/checkout")
 	public String checkout(HttpSession session) {
 		
-		float subTotal = 0;
+		float subTotal = 0; // tong tien hang
+		float fee = 5; // phi ship = 5$
 		
 		UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		// lay thong tin nguoi mua hang
 		User user = new User();
 		user.setUserId(userPrincipal.getUserId());
 		
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");  
-		String str = "2021-01-27";
-        Date date = Date.valueOf(str);
-		Object object = session.getAttribute("cart");
+        Date date = new Date(new java.util.Date().getTime()); // lay ngay hien tai
+        
+		Object object = session.getAttribute("cart"); // lay danh sach gio hang tu session
 		Map<Long, ItemDTO> mapItem = (Map<Long, ItemDTO>) object;
-		List<Item> items = new ArrayList<Item>();
 		
 		for(Map.Entry<Long, ItemDTO> entry : mapItem.entrySet()) {
 		    Long key = entry.getKey();
 		    ItemDTO value = entry.getValue();
-		    Product product = new Product();
-		    product.setProductId(entry.getValue().getProductDTO().getProductId());
 		    
-		    Item item = new Item();
-		    item.setItemId(entry.getValue().getItemId());
-		    item.setProduct(product);
-		    item.setQuantity(entry.getValue().getQuantity());
-		    item.setUnitPrice(entry.getValue().getUnitPrice());
-		    subTotal += (value.getUnitPrice() * value.getQuantity());
-		    items.add(item);
+		    subTotal += (value.getUnitPrice() * value.getQuantity()); // tinh tong tien hang
 		}
 		
 		Order order = new Order();
 		order.setBuyDate(date);
 		order.setBuyer(user);
-		order.setStatus("waitting line");
-		order.setItems(items);
-		order.setPriceTotal(subTotal + 5);
+		order.setStatus("PENDING");
+		order.setPriceTotal(subTotal + fee);
 		
 		orderDao.insert(order);
 		
+		// insert danh sach san pham trong don hang vao bang item
 		for(Map.Entry<Long, ItemDTO> entry : mapItem.entrySet()) {
 		    Long key = entry.getKey();
 		    ItemDTO value = entry.getValue();
@@ -87,6 +75,8 @@ public class CheckoutController {
 		    item.setQuantity(entry.getValue().getQuantity());
 		    item.setUnitPrice(entry.getValue().getUnitPrice());
 		    item.setOrder(order);
+		    
+		    // insert vao bang item
 			itemDao.insert(item);
 		}
 	

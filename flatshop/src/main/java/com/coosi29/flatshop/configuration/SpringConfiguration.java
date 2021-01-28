@@ -17,6 +17,8 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 @Configuration
 @PropertySource(value = "classpath:database.properties")
@@ -84,6 +86,13 @@ public class SpringConfiguration {
 		mailSenderImpl.setJavaMailProperties(javaMailProperties);
 
 		return mailSenderImpl;
+	}
+	
+	@Bean(name = "multipartResolver")
+	public MultipartResolver commomMultipartResolver() {
+		CommonsMultipartResolver commonMultipartResolver = new CommonsMultipartResolver();
+		commonMultipartResolver.setMaxUploadSize(-1);
+		return commonMultipartResolver;
 	}
 
 //	@Bean

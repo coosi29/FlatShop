@@ -19,6 +19,8 @@ public interface UserService {
 
 	UserDTO findByEmailOrPhoneAndPassword(String account, String password, boolean verity);
 	
+	UserDTO findByEmail(String email);
+	
 	int count();
 	
 }

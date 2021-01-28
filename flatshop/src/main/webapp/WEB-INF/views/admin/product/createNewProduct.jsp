@@ -57,7 +57,7 @@
 							<a class="btn btn-warning" href="product-list"
 								style="background-color: #D9534F; padding: 2px 10px; text-decoration: none; border: none; margin-right: 10px; height: 25px;">Back</a>
 						</div>
-						<form action="product-create" method="post">
+						<form action="product-create" method="post" enctype="multipart/form-data">
 							<div class="row"
 								style="display: flex; justify-content: space-between;">
 								<table style="margin: auto; margin-left: 60px;" class="col-md-6">

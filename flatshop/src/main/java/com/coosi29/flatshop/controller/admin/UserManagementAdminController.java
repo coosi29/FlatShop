@@ -64,4 +64,16 @@ public class UserManagementAdminController {
 		request.setAttribute("user", userService.findById(userId));
 		return "admin/user/updateUser";
 	}
+	
+	
+	// Delete user
+	
+	@GetMapping(value = "/user-delete")
+	public String userDelete(HttpServletRequest request) {
+		String[] userIds = request.getParameterValues("userId");
+		for (String userId : userIds) {
+			userService.delete(Long.parseLong(userId));
+		}
+		return "redirect:/admin/user-list";
+	}
 }

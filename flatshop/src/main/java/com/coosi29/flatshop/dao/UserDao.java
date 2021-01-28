@@ -20,5 +20,7 @@ public interface UserDao {
 
 	User loadUserByUsername(String account);
 	
+	User findByEmail(String email);
+	
 	int count();
 }

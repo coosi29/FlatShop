@@ -18,21 +18,13 @@
 					<h3 class="auth-form-title">Register</h3>
 					<a href="login" class="auth-form-subtitle">Login</a>
 				</div>
-				<!-- 						<p style="color: red; margin-top: -20px; margin-left: 3x; margin-bottom: 5px;">Tài khoản đã tồn tại</p> -->
+				<p style="color: red; margin-top: -20px; margin-left: 3x; margin-bottom: 5px;">${error}</p>
 
 				<div class="auth-form-form">
 					<div class="auth-form-group">
 						<input class="auth-form-input" type="email" name="email"
-							placeholder="Email" required="required" />
+							placeholder="Email" required="required" value="${email}"/>
 					</div>
-					<!-- 				<div class="auth-form-group"> -->
-					<!-- 					<input class="auth-form-input" type="email" name="phone" -->
-					<!-- 						placeholder="Phone number" required="required" /> -->
-					<!-- 				</div> -->
-					<!-- 				<div class="auth-form-group"> -->
-					<!-- 					<input class="auth-form-input" type="email" name="address" -->
-					<!-- 						placeholder="Address" required="required" /> -->
-					<!-- 				</div> -->
 					<div class="auth-form-group">
 						<input class="auth-form-input" type="password" name="password"
 							placeholder="Password" required="required" />
