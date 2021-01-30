@@ -64,7 +64,7 @@
 											src="../download?image=${sessionScope.user.avatar}"
 											style="width: 40%; margin-top: -4px;"> <a
 											style="position: absolute; margin-left: -19px; font-size: 14px;"
-											href="#">${sessionScope.username}</a></li>
+											href="profile">${sessionScope.username}</a></li>
 										<li><i
 											style="font-size: 22px; margin-top: -2px; color: #F7544A;"
 											class="fa">&#xf011;</i> <a

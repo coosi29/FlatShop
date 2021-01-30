@@ -109,8 +109,14 @@
 					<div class="col-md-3">
 						<div th:replace="client/common/special :: special"></div>
 						<div class="clearfix"></div>
+						<div class="clearfix"></div>
 						<div class="others leftbar">
 							<h3 class="title">Others</h3>
+						</div>
+						<div class="clearfix"></div>
+						<div class="clearfix"></div>
+						<div class="leftbanner">
+							<img src="../resource/client/images/vans.jpg" alt="">
 						</div>
 						<div class="clearfix"></div>
 					</div>

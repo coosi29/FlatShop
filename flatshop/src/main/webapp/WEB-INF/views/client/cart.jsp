@@ -51,9 +51,9 @@
 									<tbody>
 										<c:forEach items="${sessionScope.cart}" var="cart">
 											<tr>
-												<td><img
-													src="../download?image=${cart.value.productDTO.image}"
-													alt=""></td>
+												<td><a href="product-details"><img
+														src="../download?image=${cart.value.productDTO.image}"
+														alt=""></a></td>
 												<td>
 													<div class="shop-details">
 														<div class="productname">${cart.value.productDTO.productName}</div>
@@ -81,23 +81,25 @@
 													</c:if>
 												</td>
 												<td>
-												<form action="add-to-cart" method="post">
-												<select name="quantity" onchange="this.form.submit()">
-														<c:forEach begin="1" end="5" var="i">
-															<option
-																<c:if test="${cart.value.quantity == i}">
+													<form action="add-to-cart" method="post">
+														<select name="quantity" onchange="this.form.submit()">
+															<c:forEach begin="1" end="5" var="i">
+																<option
+																	<c:if test="${cart.value.quantity == i}">
 														selected="selected"
 														</c:if>
-																value="${i}">${i}</option>
-														</c:forEach>
-														<input type="hidden" value="${cart.value.productDTO.productId}" name="productId"/>
-												</select>
-												</form>
+																	value="${i}">${i}</option>
+															</c:forEach>
+															<input type="hidden"
+															value="${cart.value.productDTO.productId}"
+															name="productId" />
+														</select>
+													</form>
 												</td>
 												<td>
 													<h5>
-														<strong class="red">
-															$${cart.value.unitPrice * cart.value.quantity}0 </strong>
+														<strong class="red"> $${cart.value.unitPrice *
+															cart.value.quantity}0 </strong>
 													</h5>
 												</td>
 												<td><a
@@ -120,18 +122,15 @@
 									<div class="col-md-4 col-sm-6">
 										<div class="shippingbox">
 											<h5>Estimate Shipping And Tax</h5>
-											<form>
-												<label> Address * </label> 
-												<select class="">
-													<option>FPT University - Thach That - Ha Noi</option>
-												</select> <label> Phone number * </label>
-												<select class="">
-													<option>032-063-9462</option>
-												</select> <label> Change of shipping address * </label>
-
-												<div class="clearfix"></div>
-												<button>Go To Profile</button>
-											</form>
+											<label> Address * </label> <input type="text" name=""
+												value="${sessionScope.user.address}" style="color: red;"
+												readonly="readonly" /> <label> Phone number * </label> <input
+												type="text" name="" value="${sessionScope.user.phone}"
+												style="color: red;" readonly="readonly" /> <label>
+												Change of shipping address * </label>
+											<c:if test="${sessionScope.user != null}">
+												<a href="profile"><button>Go To Profile</button></a>
+											</c:if>
 										</div>
 									</div>
 									<div class="col-md-4 col-sm-6">
@@ -139,7 +138,9 @@
 											<h5>Discount Codes</h5>
 											<form>
 												<label> Enter your coupon code if you have one </label> <input
-													type="text" name="">
+													type="text" name=""
+													value="There are currently no discount codes."
+													style="color: red;" readonly="readonly" />
 												<div class="clearfix"></div>
 												<button>Get A Qoute</button>
 											</form>
@@ -160,12 +161,20 @@
 												<span>$${sessionScope.grandTotal}0</span>
 											</div>
 											<c:if test="${sessionScope.user != null}">
-											<form action="checkout" method="post">
-												<button type="submit">Process To Checkout</button>
-											</form>
+												<c:if
+													test="${sessionScope.user.address == null || sessionScope.user.phone == null}">
+													<a href="profile-from-cart"><button>Process To
+															Checkout</button></a>
+												</c:if>
+												<c:if
+													test="${sessionScope.user.address != null && sessionScope.user.phone != null}">
+													<form action="checkout" method="post">
+														<button type="submit">Process To Checkout</button>
+													</form>
+												</c:if>
 											</c:if>
 											<c:if test="${sessionScope.user == null}">
-												 <a href="../login"><button>Process To Checkout</button></a>
+												<a href="../login"><button>Process To Checkout</button></a>
 											</c:if>
 										</div>
 									</div>
