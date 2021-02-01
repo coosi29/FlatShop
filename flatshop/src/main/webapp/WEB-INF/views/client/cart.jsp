@@ -20,6 +20,8 @@
 <link href="../resource/client/css/sequence-looptheme.css"
 	rel="stylesheet" media="all" />
 <link href="../resource/client/css/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
 <!--[if lt IE 9]><script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script><script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script><![endif]-->
 </head>
 <body id="home">
@@ -51,7 +53,7 @@
 									<tbody>
 										<c:forEach items="${sessionScope.cart}" var="cart">
 											<tr>
-												<td><a href="product-details"><img
+												<td><a href="product-details?productId=${cart.value.productDTO.productId}"><img
 														src="../download?image=${cart.value.productDTO.image}"
 														alt=""></a></td>
 												<td>
@@ -72,9 +74,8 @@
 													</div>
 												</td>
 												<td>
-													<h5 style="color: #41B314; font-weight: bold;">$${(cart.value.productDTO.price
-														- (cart.value.productDTO.price *
-														cart.value.productDTO.saleDTO.salePercent / 100))}0</h5> <c:if
+													<h5 style="color: #41B314; font-weight: bold;">$${cart.value.unitPrice}0</h5>
+													<c:if
 														test="${cart.value.productDTO.saleDTO.salePercent > 0}">
 														<p
 															style="font-size: 16px; padding-top: 7px; text-decoration: line-through;">$${cart.value.productDTO.price}0</p>
@@ -98,13 +99,14 @@
 												</td>
 												<td>
 													<h5>
-														<strong class="red"> $${cart.value.unitPrice *
-															cart.value.quantity}0 </strong>
+														<strong class="red" style="font-weight: bold;">
+															$${Math.round(cart.value.unitPrice) *
+															cart.value.quantity}.00 </strong>
 													</h5>
 												</td>
 												<td><a
 													href="delete-from-cart?productId=${cart.value.productDTO.productId}">
-														<img src="../resource/client/images/remove.png" alt="">
+														<i class="material-icons">&#xe92b;</i>
 												</a></td>
 											</tr>
 										</c:forEach>
@@ -149,11 +151,11 @@
 									<div class="col-md-4 col-sm-6">
 										<div class="shippingbox">
 											<div class="subtotal">
-												<h5>Sub Total</h5>
+												<h5>Sub Total:</h5>
 												<span>$${sessionScope.subTotal}0</span>
 											</div>
 											<div class="subtotal">
-												<h5>Shipping Fee</h5>
+												<h5>Shipping Fee:</h5>
 												<span> $5.00 </span>
 											</div>
 											<div class="grandtotal">
@@ -167,7 +169,7 @@
 															Checkout</button></a>
 												</c:if>
 												<c:if
-													test="${sessionScope.user.address != null && sessionScope.user.phone != null}">
+													test="${sessionScope.user.address != null && sessionScope.user.phone != null && sessionScope.grandTotal > 5}">
 													<form action="checkout" method="post">
 														<button type="submit">Process To Checkout</button>
 													</form>

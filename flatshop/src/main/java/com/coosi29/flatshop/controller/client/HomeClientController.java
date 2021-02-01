@@ -1,6 +1,7 @@
 package com.coosi29.flatshop.controller.client;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,12 +23,12 @@ public class HomeClientController {
 	
 	
 	@GetMapping(value = "/home")
-	public String home(HttpServletRequest request) {
+	public String home(HttpServletRequest request, HttpSession session) {
 		request.setAttribute("hotOne", productService.hotProducts(0, 4));
 		request.setAttribute("hotTwo", productService.hotProducts(1, 4));
 		request.setAttribute("featuredOne", productService.featuredProducts(0, 4));
 		request.setAttribute("featuredTwo", productService.featuredProducts(1, 4));
-		request.setAttribute("categories", categoryService.findAll());
+		session.setAttribute("categories", categoryService.findAll());
 		return "client/home";
 	}
 }

@@ -1,6 +1,5 @@
 package com.coosi29.flatshop.controller.client;
 
-import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,15 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.coosi29.flatshop.service.CategoryService;
 import com.coosi29.flatshop.service.ProductService;
 
 @Controller
 @RequestMapping(value = "/client")
 public class ProductGridClientController {
 
-	@Autowired
-	private CategoryService categoryService;
 	
 	@Autowired
 	private ProductService productService;
@@ -39,7 +35,6 @@ public class ProductGridClientController {
 		}
 		request.setAttribute("pageIndex", pageIndex);
 		request.setAttribute("totalPage", totalPage);
-		request.setAttribute("categories", categoryService.findAll());
 		request.setAttribute("products", productService.findAllByCategoryId(categoryId, pageIndex, pagesize));
 		return "client/product_grid";
 	}

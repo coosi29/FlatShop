@@ -59,18 +59,17 @@
 								</c:if>
 
 								<c:if test="${sessionScope.user != null}">
-									<ul class="usermenu">
-										<li><img class="img-circle"
+									<ul class="usermenu" style="display: flex;">   
+										<li> <a href="profile"><img class="img-circle"
 											src="../download?image=${sessionScope.user.avatar}"
-											style="width: 40%; margin-top: -4px;"> <a
-											style="position: absolute; margin-left: -19px; font-size: 14px;"
-											href="profile">${sessionScope.username}</a></li>
+											style="width: 26px; margin-top: -4px;">
+											</a><a href="profile" style="margin-left: -22px;"><span style="margin-left: 5px; color: white; font-size: 14px;">${sessionScope.username}</span></a></li>    
 										<li><i
 											style="font-size: 22px; margin-top: -2px; color: #F7544A;"
-											class="fa">&#xf011;</i> <a
+											class="fa">&#xf011;</i> <a  
 											style="position: absolute; margin-left: -18px;"
-											href="../logout">Logout</a></li>
-									</ul>
+											href="../logout">Logout</a></li>  
+									</ul>   
 								</c:if>
 
 							</div>
@@ -106,7 +105,7 @@
 						<div class="navbar-collapse">
 							<ul class="nav">
 								<li><a style="text-transform: none;" href="home">Home</a></li>
-								<c:forEach items="${categories}" var="category">
+								<c:forEach items="${sessionScope.categories}" var="category">
 									<li><a style="text-transform: none;"
 										href="product-grid?categoryId=${category.categoryId}">${category.categoryName}</a>
 									</li>

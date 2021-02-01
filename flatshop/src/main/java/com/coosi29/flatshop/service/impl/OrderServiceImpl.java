@@ -1,5 +1,7 @@
 package com.coosi29.flatshop.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -53,6 +55,25 @@ public class OrderServiceImpl implements OrderService{
 	public List<OrderDTO> findAll(int pageInde, int pageSize) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<OrderDTO> findByBuyer(long userId) {
+		List<Order> orders = orderDao.findByBuyer(userId);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		
+		List<OrderDTO> orderDTOs = new ArrayList<OrderDTO>();
+		for (Order order : orders) {
+			OrderDTO orderDTO = new OrderDTO();
+			orderDTO.setOrderId(order.getOrderId());
+			String strBuyDate = sdf.format(order.getBuyDate());
+			orderDTO.setBuyDate(order.getBuyDate());
+			orderDTO.setStatus(order.getStatus());
+			orderDTO.setPriceTotal(order.getPriceTotal());
+			orderDTOs.add(orderDTO);
+//			order.setBuyer(user);
+		}
+		return orderDTOs;
 	}
 
 }

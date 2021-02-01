@@ -14,4 +14,6 @@ public interface OrderService {
 	
 	List<OrderDTO> findAll(int pageInde, int pageSize);
 	
+	List<OrderDTO> findByBuyer(long userId);
+	
 }

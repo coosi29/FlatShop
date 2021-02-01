@@ -13,4 +13,6 @@ public interface ItemDao {
 	void delete(long itemId);
 	
 	List<Item> findAll(int pageIndex, int pageSize);
+	
+	List<Item> findByOrderId(long orderId);
 }

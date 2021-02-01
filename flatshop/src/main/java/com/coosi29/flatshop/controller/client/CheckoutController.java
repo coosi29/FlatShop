@@ -83,6 +83,6 @@ public class CheckoutController {
 		mapItem.clear();
 		session.setAttribute("cart", mapItem);
 		
-		return "client/checkout";
+		return "redirect:/client/my-order";
 	}
 }

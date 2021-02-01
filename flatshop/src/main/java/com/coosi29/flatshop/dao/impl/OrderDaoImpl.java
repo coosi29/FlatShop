@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -40,6 +41,13 @@ public class OrderDaoImpl implements OrderDao {
 	public List<Order> findAll(int pageInde, int pageSize) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<Order> findByBuyer(long userId) {
+		String sql = "SELECT o FROM Order o WHERE user_id = " + userId + " ORDER BY o.buyDate DESC";
+		Query query = sessionFactory.getCurrentSession().createQuery(sql);
+		return query.list();
 	}
 
 }

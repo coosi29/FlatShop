@@ -1,27 +1,19 @@
 package com.coosi29.flatshop.controller.client;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.coosi29.flatshop.model.BillProductDTO;
 import com.coosi29.flatshop.model.ItemDTO;
 import com.coosi29.flatshop.model.ProductDTO;
-import com.coosi29.flatshop.model.UserDTO;
-import com.coosi29.flatshop.model.UserPrincipal;
-import com.coosi29.flatshop.service.CategoryService;
 import com.coosi29.flatshop.service.ProductService;
 
 @Controller
@@ -29,14 +21,10 @@ import com.coosi29.flatshop.service.ProductService;
 public class CartClientController {
 
 	@Autowired
-	private CategoryService categoryService;
-
-	@Autowired
 	private ProductService productService;
 	
 	@GetMapping(value = "/cart")
 	public String cart(HttpServletRequest request, HttpSession session) {
-		request.setAttribute("categories", categoryService.findAll());
 		Object object = session.getAttribute("cart");
 		int totalQuantity = 0;
 		float subTotal = 0;
@@ -64,7 +52,7 @@ public class CartClientController {
 			@RequestParam(name = "productId") long productId) {
 		
 		ProductDTO productDTO = productService.findById(productId); // lay thong tin cua san pham khi nguoi dung chon mua
-		float unitPrice = Math.round(productDTO.getPrice() - (productDTO.getPrice() * productDTO.getSaleDTO().getSalePercent() / 100));
+		float unitPrice = productDTO.getPrice() - Math.round((productDTO.getPrice() * productDTO.getSaleDTO().getSalePercent() / 100));
 		
 		Object object = session.getAttribute("cart"); // lay danh sach san pham trong gio hang tren session
 		
@@ -100,7 +88,7 @@ public class CartClientController {
 	public String addToCart(HttpSession session, @RequestParam(name = "productId") long productId,
 			@RequestParam(name = "quantity") int quantity) {
 		ProductDTO productDTO = productService.findById(productId);
-		float unitPrice = Math.round(productDTO.getPrice() - (productDTO.getPrice() * productDTO.getSaleDTO().getSalePercent() / 100));
+		float unitPrice = productDTO.getPrice() - Math.round((productDTO.getPrice() * productDTO.getSaleDTO().getSalePercent() / 100));
 		
 		Object object = session.getAttribute("cart");
 		if (object == null) {

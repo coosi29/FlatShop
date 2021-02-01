@@ -14,4 +14,6 @@ public interface OrderDao {
 	
 	List<Order> findAll(int pageInde, int pageSize);
 	
+	List<Order> findByBuyer(long userId);
+	
 }

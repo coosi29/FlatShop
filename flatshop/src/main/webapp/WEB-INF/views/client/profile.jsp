@@ -31,7 +31,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-3">
-						<div class="get-newsletter leftbar">
+						<div class="get-newsletter leftbar" style="margin-top: 0px;">
 							<h3 class="title">
 								Get <strong> newsletter </strong>
 							</h3>
@@ -49,9 +49,12 @@
 					<div class="col-md-9">
 						<div class="checkout-page">
 							<ol class="checkout-steps">
+								<li class="steps">
+									<a href="my-order"><div class="step-title">01. MY ORDER</div></a>
+								</li>
 								<li class="steps active">
 									<div style="display: flex;">
-										<span class="step-title"> Billing information </span>
+										<span class="step-title">02. Billing information </span>
 										<c:if test="${messageError != null}">
 											<span
 												style="width: 90%; margin-top: 15px; font-size: 15px; color: red;">${messageError}</span>
@@ -105,31 +108,32 @@
 														<div class="form-row">
 															<label class="lebel-abs"> Your Old Password <strong
 																class="red"> * </strong>
-															</label> <input type="password" class="input namefild" name=""
-																required="required">
+															</label> <input type="password" class="input namefild"
+																name="oldpassword" required="required">
 														</div>
 														<div class="form-row">
 															<label class="lebel-abs"> Your New Password <strong
 																class="red"> * </strong>
-															</label> <input type="password" class="input namefild" name=""
-																required="required">
+															</label> <input type="password" class="input namefild"
+																name="newpassword" required="required">
 														</div>
 														<div class="form-row">
 															<label class="lebel-abs"> Confird Your Password <strong
 																class="red"> * </strong>
-															</label> <input type="password" class="input cpass" name=""
-																required="required">
+															</label> <input type="password" class="input cpass"
+																name="repassword" required="required">
 														</div>
 														<p class="privacy">
 															<span class="text"> The password should be longer
 																than 8 characters, to protect your account </span>
 														</p>
-														<button>Change Password</button>
+														<button type="submit">Change Password</button>
 													</div>
 												</form>
 											</div>
 										</div>
 									</div>
+								</li>
 							</ol>
 						</div>
 					</div>

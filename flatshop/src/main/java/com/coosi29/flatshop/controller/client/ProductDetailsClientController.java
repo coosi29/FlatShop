@@ -18,13 +18,9 @@ public class ProductDetailsClientController {
 	@Autowired
 	private ProductService productService;
 	
-	@Autowired
-	private CategoryService categoryService;
-	
 	
 	@GetMapping(value = "/product-details")
 	public String productDetails(HttpServletRequest request, @RequestParam(name = "productId") long productId) {
-		request.setAttribute("categories", categoryService.findAll());
 		request.setAttribute("product", productService.findById(productId));
 		return "client/product_details";
 	}

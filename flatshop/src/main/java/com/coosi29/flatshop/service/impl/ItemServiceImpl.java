@@ -1,5 +1,6 @@
 package com.coosi29.flatshop.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -13,6 +14,8 @@ import com.coosi29.flatshop.entity.Order;
 import com.coosi29.flatshop.entity.Product;
 import com.coosi29.flatshop.model.ItemDTO;
 import com.coosi29.flatshop.model.OrderDTO;
+import com.coosi29.flatshop.model.ProductDTO;
+import com.coosi29.flatshop.model.SaleDTO;
 import com.coosi29.flatshop.service.ItemService;
 
 @Service
@@ -56,6 +59,38 @@ public class ItemServiceImpl implements ItemService {
 	public List<ItemDTO> findAll(int pageIndex, int pageSize) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<ItemDTO> findByOrderId(long orderId) {
+		List<Item> items = itemDao.findByOrderId(orderId);
+		List<ItemDTO> itemDTOs = new ArrayList<>();
+		for (Item item : items) {
+			
+			OrderDTO orderDTO = new OrderDTO();
+			orderDTO.setOrderId(item.getOrder().getOrderId());
+			
+			SaleDTO saleDTO = new SaleDTO();
+			saleDTO.setSaleId(item.getProduct().getSale().getSaleId());
+			saleDTO.setSalePercent(item.getProduct().getSale().getSalePercent());
+			
+			ProductDTO productDTO = new ProductDTO();
+			productDTO.setProductId(item.getProduct().getProductId());
+			productDTO.setImage(item.getProduct().getImage());
+			productDTO.setProductName(item.getProduct().getProductName());
+			productDTO.setPrice(item.getProduct().getPrice());
+			productDTO.setSaleDTO(saleDTO);
+			
+			ItemDTO itemDTO = new ItemDTO();
+			itemDTO.setItemId(item.getItemId());
+			itemDTO.setOrderDTO(orderDTO);
+			itemDTO.setProductDTO(productDTO);
+			itemDTO.setQuantity(item.getQuantity());
+			itemDTO.setUnitPrice(item.getUnitPrice());
+			
+			itemDTOs.add(itemDTO);
+		}
+		return itemDTOs;
 	}
 
 }

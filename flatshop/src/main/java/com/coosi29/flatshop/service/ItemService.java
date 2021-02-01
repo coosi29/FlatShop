@@ -14,4 +14,6 @@ public interface ItemService {
 	
 	List<ItemDTO> findAll(int pageIndex, int pageSize);
 	
+	List<ItemDTO> findByOrderId(long orderId);
+	
 }
