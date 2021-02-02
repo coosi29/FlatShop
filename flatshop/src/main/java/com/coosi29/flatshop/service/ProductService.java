@@ -26,5 +26,7 @@ public interface ProductService {
 	List<ProductDTO> hotProducts(int pageIndex, int pageSize);
 	
 	List<ProductDTO> featuredProducts(int pageIndex, int pageSize);
+	
+	List<ProductDTO> search(long categoryId, String pricing, float priceFrom, float priceTo, String sort, String text, int pageIndex, int pageSize);
 
 }

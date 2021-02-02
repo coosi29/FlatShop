@@ -233,4 +233,37 @@ public class ProductServiceImpl implements ProductService {
 		return productDTOs;
 	}
 
+	@Override
+	public List<ProductDTO> search(long categoryId, String pricing, float priceFrom, float priceTo, String sort,
+			String text, int pageIndex, int pageSize) {
+		List<Product> products = productDao.search(categoryId, pricing, priceFrom, priceTo, sort, text, pageIndex, pageSize);
+		List<ProductDTO> productDTOs = new ArrayList<>();
+		for (Product product : products) {
+			SaleDTO saleDTO = new SaleDTO();
+			
+			saleDTO.setSaleId(product.getSale().getSaleId());
+			saleDTO.setSalePercent(product.getSale().getSalePercent());
+			
+			CategoryDTO categoryDTO = new CategoryDTO();
+			
+			categoryDTO.setCategoryId(product.getCategory().getCategoryId());
+			categoryDTO.setCategoryName(product.getCategory().getCategoryName());
+			
+			ProductDTO productDTO = new ProductDTO();
+			
+			productDTO.setProductId(product.getProductId());
+			productDTO.setProductName(product.getProductName());
+			productDTO.setImage(product.getImage());
+			productDTO.setDescription(product.getDescription());
+			productDTO.setPrice(product.getPrice());
+			productDTO.setQuantity(product.getQuantity());
+			productDTO.setSaleDTO(saleDTO);
+			productDTO.setCategoryDTO(categoryDTO);
+			
+			productDTOs.add(productDTO);
+			
+		}
+		return productDTOs;
+	}
+
 }

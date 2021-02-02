@@ -90,4 +90,25 @@ public class ProductDaoImpl implements ProductDao{
 		return query.list();
 	}
 
+	@Override
+	public List<Product> search(long categoryId, String pricing, float priceFrom, float priceTo, String sort, String text, int pageIndex,
+			int pageSize) {
+		String sql = "SELECT p FROM Product p WHERE p.category.categoryId = " + categoryId;
+		if (pricing != null && !pricing.equals("default") && !pricing.equals("")) {
+			sql += " and ((p.price - (p.price * p.sale.salePercent / 100)) >= " + priceFrom + " and (p.price - (p.price * p.sale.salePercent / 100)) <= " + priceTo + ")";
+		}
+		
+		if (text != null) {
+			sql += " and p.productName like '%" + text + "%'";
+		}
+		
+		if (sort != null && !sort.equals("default")) {
+			sql += " ORDER BY (p.price - (p.price * p.sale.salePercent / 100)) " + sort;
+		}
+		
+		int first = pageIndex * pageSize;
+		Query query = sessionFactory.getCurrentSession().createQuery(sql).setFirstResult(first).setMaxResults(pageSize);
+		return query.list();
+	}
+
 }

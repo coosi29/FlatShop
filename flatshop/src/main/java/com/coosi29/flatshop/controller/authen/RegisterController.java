@@ -81,33 +81,33 @@ public class RegisterController {
 		return "authen/verify";
 	}
 	
-	@GetMapping(value = "resend-code")
+	@GetMapping(value = "/resend-code")
 	public String resendCode(HttpSession session, HttpServletRequest request) {
 		String code = randomString(8);
 		String email = (String) session.getAttribute("emailRegister");
 		sendEmail("coosi29@gmail.com", "quanghvhe140233@fpt.edu.vn", "Hello",
 				"Xin Chao, " + email.split("@")[0] + "! Vui long xac nhan de co the dang nhap tren FlatShop!" + " Ma xac nhan cua ban la: " + code);
-		request.setAttribute("message", "A new confirmation code has been sent to your email!");
+		request.setAttribute("resend", "resend");
 		session.setAttribute("codeVerify", code);
 		return "authen/verify";
 	}
 
-	@PostMapping(value = "verify")
+	@PostMapping(value = "/verify")
 	public String verify(HttpServletRequest request, HttpSession session) {
 		String code = request.getParameter("code");
 		String codeVerify = (String) session.getAttribute("codeVerify");
 		if (!code.equals(codeVerify)) {
-			request.setAttribute("message", "The confirmation code is not correct, please try again!");
+			request.setAttribute("verifyFail", "Invalid code, please try again!");
 		} else {
 			String email = (String) session.getAttribute("emailRegister");
 			UserDTO userDTO = userService.findByEmail(email);
 			userDTO.setVerify(true);
-			request.setAttribute("message", "Verification successfull! You can login now!");
+			request.setAttribute("verifySuccess", "Verification successfull!");
 			request.setAttribute("active", "active");
 			userService.update(userDTO);
 		}
 		return "authen/verify";
-	}
+	} 
 	
 	public void sendEmail(String from, String to, String subject, String content) {
 		SimpleMailMessage mailMessage = new SimpleMailMessage();

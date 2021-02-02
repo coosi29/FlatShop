@@ -79,10 +79,10 @@
 					<div class="header_bottom">
 						<ul class="option">
 							<li id="search" class="search">
-								<form>
+								<form action="search" method="get">
 									<input class="search-submit" type="submit" value=""><input
 										class="search-input" placeholder="Enter your search term..."
-										type="text" value="" name="search">
+										type="text" value="" name="text">
 								</form>
 							</li>
 
@@ -107,7 +107,7 @@
 								<li><a style="text-transform: none;" href="home">Home</a></li>
 								<c:forEach items="${sessionScope.categories}" var="category">
 									<li><a style="text-transform: none;"
-										href="product-grid?categoryId=${category.categoryId}">${category.categoryName}</a>
+										href="search?categoryId=${category.categoryId}">${category.categoryName}</a>
 									</li>
 								</c:forEach>
 							</ul>

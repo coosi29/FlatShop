@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,15 +14,28 @@
 				<a href="productlitst.html" class="list"> List </a> <a href="#"
 					class="grid active"> Grid </a>
 			</div>
-			<form th:action="@{/client/grid-master-auto-find}">
+			<form action="search" method="get">
 				<div class="sort-by">
 					Sort By Price: <select name="sort" onchange="this.form.submit()">
-						<option value="default">Default</option>
-						<option value="asc" th:selected="${sort == 'asc'}">ASC</option>
-						<option value="desc" th:selected="${sort == 'desc'}">DESC</option>
-					</select> <input type="hidden" th:value="${categoryId}" name="categoryId" />
-					<input type="hidden" th:value="${from}" name="from"> <input
-						type="hidden" th:value="${to}" name="to">
+						<option
+							<c:if test="${sort eq 'default'}">
+						selected="selected"
+						</c:if>
+							value="default">Default</option>
+						<option
+							<c:if test="${sort eq 'ASC'}">
+						selected="selected"
+						</c:if>
+							value="ASC">ASC</option>
+						<option
+							<c:if test="${sort eq 'DESC'}">
+						selected="selected"
+						</c:if>
+							value="DESC">DESC</option>
+					</select> <input type="hidden" value="${categoryId}" name="categoryId" /> <input
+						type="hidden" value="${pricing}" name="pricing" />
+						<input
+						type="hidden" value="${text}" name="text" />
 				</div>
 			</form>
 			<div class="limiter">

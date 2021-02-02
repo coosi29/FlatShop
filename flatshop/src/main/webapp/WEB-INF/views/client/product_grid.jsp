@@ -42,15 +42,30 @@
 
 						<div class="price-filter leftbar">
 							<h3 class="title">Price</h3>
-							<form class="pricing"
-								th:action="@{/client/grid-master-auto-find}">
-								<label> $ <input type="number" min="1"
-									style="width: 50px;" th:value="${from}" name="from">
-								</label> <span class="separate"> - </span> <label> $ <input
-									type="number" min="1" style="width: 50px;" th:value="${to}"
-									name="to">
-								</label> <input type="hidden" th:value="${categoryId}" name="categoryId" />
-								<input type="submit" value="Go">
+							<form class="pricing" action="search" method="get">
+								<select name="pricing" onchange='this.form.submit()'>
+									<option
+										<c:if test="${pricing eq 'default'}">
+										selected="selected"
+										</c:if>
+										value="default">Find by price</option>
+									<option
+										<c:if test="${pricing eq 'under50'}">
+										selected="selected"
+										</c:if>
+										value="under50">under 50 dollars</option>
+									<option
+										<c:if test="${pricing eq '50to70'}">
+										selected="selected"
+										</c:if>
+										value="50to70">50 dollars to 70 dollars</option>
+									<option
+										<c:if test="${pricing eq 'greaterthan70'}">
+										selected="selected"
+										</c:if>
+										value="greaterthan70">greater than 70 dollars</option>
+									<input type="hidden" name="categoryId" value="${categoryId}" />
+								</select>
 							</form>
 						</div>
 
@@ -123,9 +138,9 @@
 											</c:if>
 
 											<div class="button_group">
-													<a class="button add-cart" type="button"
-														href="add-to-cart?productId=${product.productId}">Add
-														To Cart</a>
+												<a class="button add-cart" type="button"
+													href="add-to-cart?productId=${product.productId}">Add
+													To Cart</a>
 												<button class="button compare" type="button">
 													<i class="fa fa-exchange"></i>
 												</button>
@@ -153,16 +168,20 @@
 			</div>
 		</div>
 		<%@include file="common/footer.jsp"%>
-	</div>	
-		<!-- Bootstrap core JavaScript==================================================-->
-	<script type="text/javascript" src="../resource/client/js/jquery-1.10.2.min.js"></script>
-	<script type="text/javascript" src="../resource/client/js/jquery.easing.1.3.js"></script>
-	<script type="text/javascript" src="../resource/client/js/bootstrap.min.js"></script>
+	</div>
+	<!-- Bootstrap core JavaScript==================================================-->
+	<script type="text/javascript"
+		src="../resource/client/js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript"
+		src="../resource/client/js/jquery.easing.1.3.js"></script>
+	<script type="text/javascript"
+		src="../resource/client/js/bootstrap.min.js"></script>
 	<script type="text/javascript"
 		src="../resource/client/js/jquery.sequence-min.js"></script>
 	<script type="text/javascript"
 		src="../resource/client/js/jquery.carouFredSel-6.2.1-packed.js"></script>
 	<script defer src="../resource/client/js/jquery.flexslider.js"></script>
-	<script type="text/javascript" src="../resource/client/js/script.min.js"></script>
+	<script type="text/javascript"
+		src="../resource/client/js/script.min.js"></script>
 </body>
 </html>

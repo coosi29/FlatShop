@@ -35,6 +35,7 @@ public class ProductGridClientController {
 		}
 		request.setAttribute("pageIndex", pageIndex);
 		request.setAttribute("totalPage", totalPage);
+		request.setAttribute("categoryId", categoryId);
 		request.setAttribute("products", productService.findAllByCategoryId(categoryId, pageIndex, pagesize));
 		return "client/product_grid";
 	}
