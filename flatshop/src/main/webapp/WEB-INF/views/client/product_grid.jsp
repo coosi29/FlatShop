@@ -65,6 +65,7 @@
 										</c:if>
 										value="greaterthan70">greater than 70 dollars</option>
 									<input type="hidden" name="categoryId" value="${categoryId}" />
+									<input type="hidden" name="text" value="${text}" />
 								</select>
 							</form>
 						</div>

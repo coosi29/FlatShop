@@ -53,8 +53,8 @@ public class RegisterController {
 				} else {
 					userDTO.setPassword(new BCryptPasswordEncoder().encode(password));
 					userService.update(userDTO);
-					sendEmail("coosi29@gmail.com", "quanghvhe140233@fpt.edu.vn", "Hello",
-							"Xin Chao, " + email.split("@")[0] + "! Vui long xac nhan de co the dang nhap tren FlatShop!" + " Ma xac nhan cua ban la: " + code);
+					sendEmail("coosi29@gmail.com", email, "Welcome to FlatShop!",
+							"Hello, " + email.split("@")[0] + "! Please confirm that you can login in FlatShop!" + " Your confirmation code is: " + code);
 				}
 			}
 		} else {
@@ -71,8 +71,8 @@ public class RegisterController {
 				roleDTO.setRoleId(3);
 				userDTO.setRoleDTO(roleDTO);
 				userService.insert(userDTO);
-				sendEmail("coosi29@gmail.com", "quanghvhe140233@fpt.edu.vn", "Hello",
-						"Xin Chao, " + email.split("@")[0] + "! Vui long xac nhan de co the dang nhap tren FlatShop!" + " Ma xac nhan cua ban la: " + code);
+				sendEmail("coosi29@gmail.com", email, "Welcome to FlatShop!",
+						"Hello, " + email.split("@")[0] + "! Please confirm that you can login in FlatShop!" + " Your confirmation code is: " + code);
 			}
 		}
 		HttpSession session = request.getSession();
@@ -85,8 +85,8 @@ public class RegisterController {
 	public String resendCode(HttpSession session, HttpServletRequest request) {
 		String code = randomString(8);
 		String email = (String) session.getAttribute("emailRegister");
-		sendEmail("coosi29@gmail.com", "quanghvhe140233@fpt.edu.vn", "Hello",
-				"Xin Chao, " + email.split("@")[0] + "! Vui long xac nhan de co the dang nhap tren FlatShop!" + " Ma xac nhan cua ban la: " + code);
+		sendEmail("coosi29@gmail.com", email, "Welcome to FlatShop!",
+				"Hello, " + email.split("@")[0] + "! Please confirm that you can login in FlatShop!" + " Your confirmation code is: " + code);
 		request.setAttribute("resend", "resend");
 		session.setAttribute("codeVerify", code);
 		return "authen/verify";
@@ -108,6 +108,13 @@ public class RegisterController {
 		}
 		return "authen/verify";
 	} 
+	
+	@PostMapping(value = "get-news")
+	public String getNews(@RequestParam(name = "email") String email) {
+		sendEmail("coosi29@gmail.com", email, "Welcome to FlatShop!",
+				"Thank you for your interest, we will send you the latest notice if any. Please pay attention to your mail.");
+		return "client/get_news";
+	}
 	
 	public void sendEmail(String from, String to, String subject, String content) {
 		SimpleMailMessage mailMessage = new SimpleMailMessage();

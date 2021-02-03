@@ -57,12 +57,11 @@
 						<div class="panel-heading"
 							style="display: flex; justify-content: space-between;">
 							<h3 class="panel-title">UPDATE ACCOUNT</h3>
+							<span style="color: red; font-weight: bold; font-size: 18px;">${message}</span>
 							<a class="btn btn-warning" href="user-list"
 								style="background-color: #D9534F; padding: 2px 10px; text-decoration: none; border: none; margin-right: 10px; height: 25px;">Back</a>
-<!-- 							<span style="color: red; font-weight: bold; font-size: 18px;" -->
-<%-- 								th:text="${message}"></span> --%>
 						</div>
-						<form th:action="@{/admin/user-update}" method="post"
+						<form action="user-update" method="post"
 							enctype="multipart/form-data">
 							<div class="row"
 								style="display: flex; justify-content: space-between;">
@@ -71,32 +70,40 @@
 									class="col-md-6">
 									<tr>
 										<th>Email:</th>
-										<td><input type="hidden" value="${user.userId}"
-											name="userId" /> <input required="required"
-											readonly="readonly" type="text" class="form-control"
-											style="height: 30px;" placeholder="Your account..."
-											value="${user.email}" name="email" /></td>
+										<td><input required="required" type="email"
+											class="form-control" style="height: 30px;"
+											placeholder="Your Email..." name="email"
+											value="${user.email}" readonly="readonly"/>
+											<input type="hidden" name="userId" value="${user.userId}"/>
+											</td>
 									</tr>
 									<tr>
 										<th>Full name:</th>
 										<td><input type="text" class="form-control"
-											style="height: 30px;" value="${user.fullname}"
-											placeholder="Your name..." name="fullName" /></td>
+											style="height: 30px;" placeholder="Your name..."
+											name="fullName" value="${user.fullname}" /></td>
 									</tr>
 									<tr>
 										<th>Gender:</th>
-										<td><input type="radio"
-											checked="${user.gender ? true : false}" name="gender"
-											value="true" /> <span style="margin-right: 100px;">Male</span>
-											<input type="radio" checked="${user.gender ? false : true}"
-											name="gender" value="false" /> Female</td>
+										<td><input type="radio" name="gender" value="true"
+											style="cursor: pointer;"
+											<c:if test="${user.gender eq 'true'}">
+											 checked="checked"
+											</c:if> />
+											<span style="margin-right: 100px;">Male</span> <input
+											type="radio" name="gender" value="false"
+											style="cursor: pointer;"
+											<c:if test="${user.gender eq 'false'}">
+											 checked="checked"
+											</c:if> />
+											Female</td>
 									</tr>
 									<tr>
 										<th>Phone number:</th>
 										<td><input required="required" type="text"
 											class="form-control" style="height: 30px;"
-											placeholder="Your phone number..." value="${user.phone}"
-											name="phone" /></td>
+											placeholder="Your phone number..." name="phone"
+											value="${user.phone}" /></td>
 									</tr>
 									<tr>
 										<th>Address:</th>
@@ -115,34 +122,32 @@
 										<td><select name="roleId">
 												<c:forEach items="${roles}" var="role">
 													<option value="${role.roleId}"
-														<c:if test="${user.role.roleId == role.roleId}">
+														<c:if test="${user.roleDTO.roleId == role.roleId}">
 														selected="selected"
-														</c:if>
-														>${role.roleName}</option>
+														</c:if>>${role.roleName}</option>
 												</c:forEach>
 										</select></td>
 									</tr>
 									<tr>
 										<th>Avatar:</th>
-										<td style="display: flex;"><img
-											src="../download?image=${user.avatar}" alt="Avatar"
-											class="avatar img-circle" style="width: 15%;"><input
-											style="padding-top: 20px; margin-left: 10px;"
-											name="avatarFile" type="file" /> <input type="hidden"
-											value="${user.avatar}" name="avatar" /></td>
+										<td style="display: flex;"><c:if test="${user.avatar != null}">
+												<img src="../download?image=${user.avatar}" alt="Avatar"
+													class="avatar img-circle" style="width: 15%;">
+											</c:if> <input type="file" name="avatarFile" style="margin-left: 5px; margin-top: 30px;"/>
+											<input type="hidden" name="avatar" value="${user.avatar}"/>	
+										</td>
 									</tr>
 									<tr>
 										<th>Password:</th>
-										<td><input type="hidden" th:value="${user.password}"
-											name="oldpassword" /> <input type="password"
+										<td><input type="password"
 											class="form-control" style="height: 30px;"
-											placeholder="********" name="password" /></td>
+											placeholder="Your password..." name="password" /></td>
 									</tr>
 									<tr>
 										<th>Re-password:</th>
-										<td><input type="password" class="form-control"
-											style="height: 30px;" placeholder="Re-password..."
-											name="repassword" /></td>
+										<td><input type="password"
+											class="form-control" style="height: 30px;"
+											placeholder="Re-password..." name="repassword" /></td>
 									</tr>
 									<tr>
 										<th></th>

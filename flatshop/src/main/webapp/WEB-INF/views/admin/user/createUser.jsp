@@ -57,22 +57,21 @@
 						<div class="panel-heading"
 							style="display: flex; justify-content: space-between;">
 							<h3 class="panel-title">CREATE NEW ACCOUNT</h3>
+							<span style="color: red; font-weight: bold; font-size: 18px;">${message}</span>
 							<a class="btn btn-warning" href="user-list"
 								style="background-color: #D9534F; padding: 2px 10px; text-decoration: none; border: none; margin-right: 10px; height: 25px;">Back</a>
-<!-- 							<span style="color: red; font-weight: bold; font-size: 18px;" -->
-<%-- 								th:text="${message}"></span> --%>
 						</div>
-						<form th:action="@{/admin/user-create}" method="post" enctype="multipart/form-data">
+						<form action="user-create" method="post" enctype="multipart/form-data">
 							<div class="row"
 								style="display: flex; justify-content: space-between;">
 								<table
 									style="margin: auto; margin-left: 45px; margin-right: 50px;"
 									class="col-md-6">
 									<tr>
-										<th>Username:</th>
-										<td><input required="required" type="text"
+										<th>Email:</th>
+										<td><input required="required" type="email"
 											class="form-control" style="height: 30px;"
-											placeholder="Your account..." name="username" /></td>
+											placeholder="Your Email..." name="email" /></td>
 									</tr>
 									<tr>
 										<th>Full name:</th>
@@ -108,15 +107,11 @@
 										<th>ROLE:</th>
 										<td><select name="roleId">
 												<c:forEach items="${roles}" var="role">
-													<option value="${role.roleId}"
-														<c:if test="${user.role.roleId == role.roleId}">
-														selected="selected"
-														</c:if>
-														>${role.roleName}</option>
+													<option value="${role.roleId}">${role.roleName}</option>
 												</c:forEach>
 										</select></td>
 									</tr>
-									<tr>
+									<tr>   
 										<th>Avatar:</th>
 										<td><input type="file"
 											name="avatarFile" /></td>

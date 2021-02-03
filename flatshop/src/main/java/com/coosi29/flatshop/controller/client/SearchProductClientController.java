@@ -24,11 +24,6 @@ public class SearchProductClientController {
 			@RequestParam(name = "text", required = false) String text) {
 		int pageIndex = 0;
 		int pageSize = 6;
-		int totalPage = 3;
-		long categoryId = 1;
-		if(request.getParameter("categoryId") != null) {
-			categoryId = Long.parseLong(request.getParameter("categoryId"));
-		}
 		
 		float priceFrom = 0;
 		float priceTo = 0;
@@ -46,6 +41,30 @@ public class SearchProductClientController {
 			pricing = "default";
 		}
 		
+		
+		long categoryId = 1;
+		if(request.getParameter("categoryId") != null) {
+			categoryId = Long.parseLong(request.getParameter("categoryId"));
+		}
+		
+		if(request.getParameter("pageSize") != null) {
+			pageSize = Integer.parseInt(request.getParameter("pageSize"));
+		}
+		
+		if (request.getParameter("pageIndex") != null) {
+			pageIndex = Integer.parseInt(request.getParameter("pageIndex"));
+		}
+		
+		int totalPage = 0;
+		int count = productService.countBySearch(categoryId, pricing, priceFrom, priceTo, text);
+		if (count % pageSize == 0) {
+			totalPage = count / pageSize;
+		} else {
+			totalPage = count / pageSize + 1;
+		}
+
+		request.setAttribute("pageSize", pageSize);
+		request.setAttribute("pageIndex", pageIndex);
 		request.setAttribute("text", text);
 		request.setAttribute("sort", sort);
 		request.setAttribute("pricing", pricing);

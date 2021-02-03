@@ -23,7 +23,7 @@
 <link href="../resource/client/css/style.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
-
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
 </head>
 
 <body id="home">
@@ -97,7 +97,7 @@
 							</ol>
 						</div>
 					</div>
-					</div>
+					</div>  
 				</div>
 				<div class="clearfix"></div>
 			</div>

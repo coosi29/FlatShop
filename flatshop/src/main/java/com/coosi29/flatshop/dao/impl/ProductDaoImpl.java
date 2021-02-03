@@ -111,4 +111,20 @@ public class ProductDaoImpl implements ProductDao{
 		return query.list();
 	}
 
+	@Override
+	public int countBySearch(long categoryId, String pricing, float priceFrom, float priceTo, String text) {
+		String sql = "SELECT COUNT(p) FROM Product p where p.category.categoryId = " + categoryId; 
+		
+		if (pricing != null && !pricing.equals("default") && !pricing.equals("")) {
+			sql += " and ((p.price - (p.price * p.sale.salePercent / 100)) >= " + priceFrom + " and (p.price - (p.price * p.sale.salePercent / 100)) <= " + priceTo + ")";
+		}
+		
+		if (text != null) {
+			sql += " and p.productName like '%" + text + "%'";
+		}
+		Query query = sessionFactory.getCurrentSession().createQuery(sql);
+		long count = (long) query.uniqueResult();
+		return (int) count;
+	}
+
 }

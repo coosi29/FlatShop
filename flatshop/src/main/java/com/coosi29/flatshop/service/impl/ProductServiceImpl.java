@@ -266,4 +266,9 @@ public class ProductServiceImpl implements ProductService {
 		return productDTOs;
 	}
 
+	@Override
+	public int countBySearch(long categoryId, String pricing, float priceFrom, float priceTo, String text) {
+		return productDao.countBySearch(categoryId, pricing, priceFrom, priceTo, text);
+	}
+
 }

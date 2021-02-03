@@ -36,9 +36,9 @@
 								Get <strong> newsletter </strong>
 							</h3>
 							<p>Casio G Shock Digital Dial Black.</p>
-							<form>
-								<input class="email" type="text" name=""
-									placeholder="Your Email..."> <input class="submit"
+							<form action="../get-news" method="post">
+								<input class="email" type="text" name="email"
+									placeholder="Your Email..." required="required"> <input class="submit"
 									type="submit" value="Submit">
 							</form>
 						</div>

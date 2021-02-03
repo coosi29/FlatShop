@@ -11,7 +11,7 @@
 	<div class="toolbar">
 		<div class="sorter">
 			<div class="view-mode">
-				<a href="productlitst.html" class="list"> List </a> <a href="#"
+				<a href="#" class="list"> List </a> <a href="#"
 					class="grid active"> Grid </a>
 			</div>
 			<form action="search" method="get">
@@ -33,23 +33,48 @@
 						</c:if>
 							value="DESC">DESC</option>
 					</select> <input type="hidden" value="${categoryId}" name="categoryId" /> <input
-						type="hidden" value="${pricing}" name="pricing" />
-						<input
-						type="hidden" value="${text}" name="text" />
+						type="hidden" value="${pricing}" name="pricing" /> <input
+						type="hidden" value="${text}" name="text" /> <input type="hidden"
+						name="pageIndex" value="${pageIndex}" />
 				</div>
 			</form>
 			<div class="limiter">
-				Show : <select name="">
-					<option value="3" selected>3</option>
-					<option value="6">6</option>
-					<option value="9">9</option>
-				</select>
+				<form action="search" method="get">
+					Show : <select name="pageSize" onchange="this.form.submit()">
+						<option
+							<c:if test="${pageSize == 3}">
+						selected="selected"
+						</c:if>
+							value="3">3</option>
+						<option
+							<c:if test="${pageSize == 6}">
+						selected="selected"
+						</c:if>
+							value="6">6</option>
+						<option
+							<c:if test="${pageSize == 9}">
+						selected="selected"
+						</c:if>
+							value="9">9</option>
+					</select> <input type="hidden" value="${categoryId}" name="categoryId" /> <input
+						type="hidden" value="${pricing}" name="pricing" /> <input
+						type="hidden" value="${text}" name="text" />
+				</form>
 			</div>
 		</div>
 		<div class="pager">
 			<a href="#" class="prev-page"> <i class="fa fa-angle-left"> </i>
-			</a> <a href="#" class="active"> 1 </a> <a href="#"> 2 </a> <a href="#">
-				3 </a> <a href="#" class="next-page"> <i class="fa fa-angle-right">
+			</a>
+			<c:forEach begin="0" end="${totalPage - 1}" var="i">
+				<a
+					href="search?pricing=${pricing}&text=${text}&pageIndex=${i}&categoryId=${categoryId}&pageSize=${pageSize}"
+					<c:if test="${pageIndex == i}">
+				class="active"
+			</c:if>>
+					${i+1} </a>
+			</c:forEach>
+
+			<a href="#" class="next-page"> <i class="fa fa-angle-right">
 			</i>
 			</a>
 		</div>
