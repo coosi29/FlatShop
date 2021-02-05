@@ -12,7 +12,7 @@ Data : ShopVans <br/>
  <a href="https://github.com/coosi29/FlatShop/tree/main/flatshop">Download FlatShop Backend</a><br/>
 
  <h2>Video Demo</h2>
- <a href="https://www.youtube.com/watch?v=eB3Ws_aYIjY&feature=youtu.be">Video FlatShop Demo</a><br/>
+ <a href="https://www.youtube.com/watch?v=d36tnXP0FzQ">Video FlatShop Demo</a><br/>
 
 <h2>Examples</h2>
 <img src="./src/image/shopsaleReadme1.png" style="height:300px , margin-bottom:10px"/>
