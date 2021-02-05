@@ -1,5 +1,5 @@
 
-<img src="./images/favicon.png" style="height:40px"/>
+<img src="./images/favicon.png" style="height:40px; float: left;"/>
 <a href="#">FlatShop</a>
 
 <h2>Information</h2>
