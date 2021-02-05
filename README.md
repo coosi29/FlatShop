@@ -10,7 +10,6 @@ Data : ShopVans <br/>
 
 <h2>Installation</h2>
  <a href="https://github.com/coosi29/FlatShop/tree/main/flatshop">Download FlatShop Backend</a><br/>
- Run ShopSale web app with npm start <br/>
 
  <h2>Video Demo</h2>
  <a href="https://www.youtube.com/watch?v=eB3Ws_aYIjY&feature=youtu.be">ShopSale Demo</a><br/>
