@@ -1,5 +1,5 @@
 
-<img src="./src/image/LogoWeb.png" style="height:40px"/>
+<img src="images/Logo.png" style="height:40px"/>
 <a href="https://shopsale.cf/">ShopSale</a>
 
 <h2>Information</h2>
