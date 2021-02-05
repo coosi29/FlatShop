@@ -1,6 +1,6 @@
 
-<img src="./images/logo.png" style="height:40px"/>
-<a href="https://shopsale.cf/">ShopSale</a>
+<img src="./images/favicon.png" style="height:40px"/>
+<a href="#">FlatShop</a>
 
 <h2>Information</h2>
 Tech : ReactJs , NodeJs ( ExpressJs) , MongoDb,...<br/>
