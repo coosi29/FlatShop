@@ -3,18 +3,14 @@
 <a href="#">FlatShop</a>
 
 <h2>Information</h2>
-Tech : ReactJs , NodeJs ( ExpressJs) , MongoDb,...<br/>
-Another : Heroku , Material-UI , Cloudflare,...<br/>
-User Account, Admin page, Search multiple field (VN-EN , Suggestion-Autocomplete ) <br/>
-Cart Functionality, Category, Pagination, Sort , FeedBack ,FB Messenger, SEO Google,... <br/>
-Data : Shopee , Tiki <br/>
-
+Tech : Spring MVC , My SQL, Hibernate, Security, Spring Mail, HTML, CSS,...<br/>
+Data : ShopVans <br/>
 
 <h2>Installation</h2>
- <a href="https://github.com/coosi29/FlatShop/tree/main/flatshop">Download ShopSale Backend</a><br/>
+ <a href="https://github.com/coosi29/FlatShop/tree/main/flatshop">Download FlatShop Backend</a><br/>
  Run ShopSale web app with npm start <br/>
 
- <h2>Demo</h2>
+ <h2>Video Demo</h2>
  <a href="https://www.youtube.com/watch?v=eB3Ws_aYIjY&feature=youtu.be">ShopSale Demo</a><br/>
 
 <h2>Examples</h2>
