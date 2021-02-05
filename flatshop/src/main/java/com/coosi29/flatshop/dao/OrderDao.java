@@ -12,8 +12,12 @@ public interface OrderDao {
 	
 	void delete(long orderId);
 	
-	List<Order> findAll(int pageInde, int pageSize);
+	List<Order> findAll(int pageIndex, int pageSize);
 	
 	List<Order> findByBuyer(long userId);
+	
+	int count();
+	
+	Order findById(long orderId);
 	
 }

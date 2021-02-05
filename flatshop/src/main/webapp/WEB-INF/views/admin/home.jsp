@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,7 +55,7 @@
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-md-3">
-									<a class="metric-link" href="" style="color: #676A6D;">
+									<a class="metric-link" href="../admin/order-list" style="color: #676A6D;">
 										<div class="metric" style="box-shadow: 0 0 3px;">
 											<span class="icon"><i class="fa fa-shopping-cart"></i></span>
 											<p>
@@ -77,8 +77,7 @@
 									</a>
 								</div>
 								<div class="col-md-3">
-									<a class="metric-link" href="user-list"
-										style="color: #676A6D;">
+									<a class="metric-link" href="user-list" style="color: #676A6D;">
 										<div class="metric" style="box-shadow: 0 0 3px;">
 											<span class="icon"><i
 												style='font-size: 24px; margin-top: 2px;' class='fas'>&#xf0c0;</i></span>
@@ -120,44 +119,25 @@
 														<th>Amount</th>
 														<th>Date &amp; Time</th>
 														<th>Status</th>
+														<th>Details</th>
 													</tr>
 												</thead>
 												<tbody>
-													<tr>
-														<td><a href="#">763648</a></td>
-														<td>Steve</td>
-														<td>$122</td>
-														<td>Oct 21, 2016</td>
-														<td><span class="label label-success">COMPLETED</span></td>
-													</tr>
-													<tr>
-														<td><a href="#">763649</a></td>
-														<td>Amber</td>
-														<td>$62</td>
-														<td>Oct 21, 2016</td>
-														<td><span class="label label-warning">PENDING</span></td>
-													</tr>
-													<tr>
-														<td><a href="#">763650</a></td>
-														<td>Michael</td>
-														<td>$34</td>
-														<td>Oct 18, 2016</td>
-														<td><span class="label label-danger">FAILED</span></td>
-													</tr>
-													<tr>
-														<td><a href="#">763651</a></td>
-														<td>Roger</td>
-														<td>$186</td>
-														<td>Oct 17, 2016</td>
-														<td><span class="label label-success">SUCCESS</span></td>
-													</tr>
-													<tr>
-														<td><a href="#">763652</a></td>
-														<td>Smith</td>
-														<td>$362</td>
-														<td>Oct 16, 2016</td>
-														<td><span class="label label-success">SUCCESS</span></td>
-													</tr>
+													<c:forEach items="${orders}" var="order">
+														<tr>
+															<td><a href="#">No. ${order.orderId}</a></td>
+															<td>${order.userDTO.email.split("@")[0]}</td>
+															<td>$${order.priceTotal}0</td>
+															<td>${order.buyDate}</td>
+															<c:if test="${order.status eq 'PENDING'}">
+																<td><a href="order-updateHome?orderId=${order.orderId}"><span class="label label-warning">PENDING</span></a></td>
+															</c:if>
+															<c:if test="${order.status eq 'SUCCESS'}">
+																<td><span class="label label-success">SUCCESS</span></td>
+															</c:if>
+															<td><a href="" style="text-decoration: underline;">Details</a></td>
+														</tr>
+													</c:forEach>
 												</tbody>
 											</table>
 										</div>
@@ -168,7 +148,7 @@
 														Last 24 hours</span>
 												</div>
 												<div class="col-md-6 text-right">
-													<a href="#" class="btn btn-primary">View All Purchases</a>
+													<a href="../admin/order-list" class="btn btn-primary">View All Purchases</a>
 												</div>
 											</div>
 										</div>

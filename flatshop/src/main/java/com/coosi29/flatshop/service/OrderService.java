@@ -16,4 +16,8 @@ public interface OrderService {
 	
 	List<OrderDTO> findByBuyer(long userId);
 	
+	int count();
+	
+	OrderDTO findById(long orderId);
+	
 }

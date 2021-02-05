@@ -27,8 +27,7 @@ public class OrderDaoImpl implements OrderDao {
 
 	@Override
 	public void update(Order order) {
-		// TODO Auto-generated method stub
-		
+		sessionFactory.getCurrentSession().merge(order);
 	}
 
 	@Override
@@ -38,9 +37,11 @@ public class OrderDaoImpl implements OrderDao {
 	}
 
 	@Override
-	public List<Order> findAll(int pageInde, int pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Order> findAll(int pageIndex, int pageSize) {
+		String sql = "SELECT o FROM Order o ORDER BY o.buyDate DESC";
+		int first = pageIndex * pageSize;
+		Query query = sessionFactory.getCurrentSession().createQuery(sql).setFirstResult(first).setMaxResults(pageSize);
+		return query.list();
 	}
 
 	@Override
@@ -48,6 +49,19 @@ public class OrderDaoImpl implements OrderDao {
 		String sql = "SELECT o FROM Order o WHERE user_id = " + userId + " ORDER BY o.buyDate DESC";
 		Query query = sessionFactory.getCurrentSession().createQuery(sql);
 		return query.list();
+	}
+
+	@Override
+	public int count() {
+		String sql = "SELECT COUNT(o) FROM Order o";
+		Query query = sessionFactory.getCurrentSession().createQuery(sql);
+		long count = (long) query.uniqueResult();
+		return (int) count;
+	}
+
+	@Override
+	public Order findById(long orderId) {
+		return (Order) sessionFactory.getCurrentSession().get(Order.class, orderId);
 	}
 
 }

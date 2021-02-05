@@ -13,6 +13,7 @@ import com.coosi29.flatshop.dao.OrderDao;
 import com.coosi29.flatshop.entity.Order;
 import com.coosi29.flatshop.entity.User;
 import com.coosi29.flatshop.model.OrderDTO;
+import com.coosi29.flatshop.model.UserDTO;
 import com.coosi29.flatshop.service.OrderService;
 
 @Service
@@ -41,8 +42,19 @@ public class OrderServiceImpl implements OrderService{
 
 	@Override
 	public void update(OrderDTO orderDTO) {
-		// TODO Auto-generated method stub
 		
+
+		User user = new User();
+		user.setUserId(orderDTO.getUserDTO().getUserId());
+		
+		Order order = new Order();
+		order.setOrderId(orderDTO.getOrderId());
+		order.setBuyDate(orderDTO.getBuyDate());
+		order.setStatus(orderDTO.getStatus());
+		order.setPriceTotal(orderDTO.getPriceTotal());
+		order.setBuyer(user);
+		
+		orderDao.update(order);
 	}
 
 	@Override
@@ -53,8 +65,29 @@ public class OrderServiceImpl implements OrderService{
 
 	@Override
 	public List<OrderDTO> findAll(int pageInde, int pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Order> orders = orderDao.findAll(pageInde, pageSize);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		
+		List<OrderDTO> orderDTOs = new ArrayList<OrderDTO>();
+		for (Order order : orders) {
+			UserDTO userDTO = new UserDTO();
+			userDTO.setUserId(order.getBuyer().getUserId());
+			userDTO.setEmail(order.getBuyer().getEmail());
+			userDTO.setAddress(order.getBuyer().getAddress());
+			userDTO.setPhone(order.getBuyer().getPhone());
+			userDTO.setFullname(order.getBuyer().getFullname());
+			
+			OrderDTO orderDTO = new OrderDTO();
+			orderDTO.setOrderId(order.getOrderId());
+			String strBuyDate = sdf.format(order.getBuyDate());
+			orderDTO.setBuyDate(order.getBuyDate());
+			orderDTO.setStatus(order.getStatus());
+			orderDTO.setPriceTotal(order.getPriceTotal());
+			orderDTO.setUserDTO(userDTO);
+			orderDTOs.add(orderDTO);
+//			order.setBuyer(user);
+		}
+		return orderDTOs;
 	}
 
 	@Override
@@ -74,6 +107,27 @@ public class OrderServiceImpl implements OrderService{
 //			order.setBuyer(user);
 		}
 		return orderDTOs;
+	}
+
+	@Override
+	public int count() {
+		return orderDao.count();
+	}
+
+	@Override
+	public OrderDTO findById(long orderId) {
+		Order order = orderDao.findById(orderId);
+		
+		UserDTO userDTO = new UserDTO();
+		userDTO.setUserId(order.getBuyer().getUserId());
+		
+		OrderDTO orderDTO = new OrderDTO();
+		orderDTO.setOrderId(order.getOrderId());
+		orderDTO.setBuyDate(order.getBuyDate());
+		orderDTO.setStatus(order.getStatus());
+		orderDTO.setPriceTotal(order.getPriceTotal());
+		orderDTO.setUserDTO(userDTO);
+		return orderDTO;
 	}
 
 }
