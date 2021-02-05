@@ -15,11 +15,11 @@ Data : ShopVans <br/>
  <a href="https://www.youtube.com/watch?v=0si0qdsfBQI&t=1s">Video FlatShop Demo</a><br/>
 
 <h2>Examples</h2>
-<img src="./src/image/clienthome.png" style="height:300px , margin-bottom:10px"/>
-<img src="./src/image/cart.png" style="height:300px ; margin-bottom:10px"/>
+<img src="./images/clienthome.png" style="height:300px , margin-bottom:10px"/>
+<img src="./images/cart.png" style="height:300px ; margin-bottom:10px"/>
 
-<img src="./src/image/myinfo.png" style="height:300px; margin-bottom:10px"/>
-<img src="./src/image/myorder.png" style="height:300px;margin-bottom:10px"/>
-<img src="./src/image/adminhome.png" style="height:300px;margin-bottom:10px"/>
+<img src="./images/myinfo.png" style="height:300px; margin-bottom:10px"/>
+<img src="./images/myorder.png" style="height:300px;margin-bottom:10px"/>
+<img src="./images/adminhome.png" style="height:300px;margin-bottom:10px"/>
 
 <h2>Thank you for your interest in my project.</h2>
