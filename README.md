@@ -1,6 +1,8 @@
 
-<img src="./images/favicon.png" style="height:40px; float: left;"/>
+<div style="display:flex;">
+ <a href="#"><img src="./images/favicon.png" style="height:40px; float: left;"/></a>
 <a href="#">FlatShop</a>
+</div>
 
 <h2>Information</h2>
 Tech : Spring MVC , My SQL, Hibernate, Security, Spring Mail, HTML, CSS,...<br/>
