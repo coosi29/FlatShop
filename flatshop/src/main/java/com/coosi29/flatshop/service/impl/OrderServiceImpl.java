@@ -120,6 +120,10 @@ public class OrderServiceImpl implements OrderService{
 		
 		UserDTO userDTO = new UserDTO();
 		userDTO.setUserId(order.getBuyer().getUserId());
+		userDTO.setFullname(order.getBuyer().getFullname());
+		userDTO.setAddress(order.getBuyer().getAddress());
+		userDTO.setEmail(order.getBuyer().getEmail());
+		userDTO.setPhone(order.getBuyer().getPhone());
 		
 		OrderDTO orderDTO = new OrderDTO();
 		orderDTO.setOrderId(order.getOrderId());

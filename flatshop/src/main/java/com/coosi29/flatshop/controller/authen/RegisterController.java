@@ -53,7 +53,7 @@ public class RegisterController {
 				} else {
 					userDTO.setPassword(new BCryptPasswordEncoder().encode(password));
 					userService.update(userDTO);
-					sendEmail("coosi29@gmail.com", email, "Welcome to FlatShop!",
+					sendEmail("coosi29@gmail.com", "coosi29@gmail.com", "Welcome to FlatShop!",
 							"Hello, " + email.split("@")[0] + "! Please confirm that you can login in FlatShop!" + " Your confirmation code is: " + code);
 				}
 			}
@@ -71,7 +71,7 @@ public class RegisterController {
 				roleDTO.setRoleId(3);
 				userDTO.setRoleDTO(roleDTO);
 				userService.insert(userDTO);
-				sendEmail("coosi29@gmail.com", email, "Welcome to FlatShop!",
+				sendEmail("coosi29@gmail.com", "coosi29@gmail.com", "Welcome to FlatShop!",
 						"Hello, " + email.split("@")[0] + "! Please confirm that you can login in FlatShop!" + " Your confirmation code is: " + code);
 			}
 		}

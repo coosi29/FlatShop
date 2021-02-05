@@ -7,7 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.coosi29.flatshop.entity.Item;
 import com.coosi29.flatshop.model.OrderDTO;
+import com.coosi29.flatshop.service.ItemService;
 import com.coosi29.flatshop.service.OrderService;
 
 @Controller
@@ -16,6 +18,9 @@ public class OrderManagementAdminController {
 
 	@Autowired
 	private OrderService orderService;
+	
+	@Autowired
+	private ItemService itemService;
 	
 	@GetMapping(value = "/order-list")
 	public String findAll(HttpServletRequest request) {
@@ -55,6 +60,14 @@ public class OrderManagementAdminController {
 		orderDTO.setStatus("SUCCESS");
 		orderService.update(orderDTO);
 		return "redirect:../admin/order-list?pageIndex=" + pageIndex;
+	}
+	
+	@GetMapping(value = "order-details")
+	public String orderDetails(HttpServletRequest request) {
+		long orderId = Long.parseLong(request.getParameter("orderId"));
+		request.setAttribute("items", itemService.findByOrderId(orderId));
+		request.setAttribute("order", orderService.findById(orderId));
+		return "admin/order/order_details";
 	}
 	
 }

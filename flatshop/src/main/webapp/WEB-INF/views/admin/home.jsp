@@ -135,7 +135,7 @@
 															<c:if test="${order.status eq 'SUCCESS'}">
 																<td><span class="label label-success">SUCCESS</span></td>
 															</c:if>
-															<td><a href="" style="text-decoration: underline;">Details</a></td>
+															<td><a href="order-details?orderId=${order.orderId}" style="text-decoration: underline;">Details</a></td>
 														</tr>
 													</c:forEach>
 												</tbody>

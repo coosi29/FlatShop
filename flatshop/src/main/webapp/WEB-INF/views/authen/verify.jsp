@@ -17,9 +17,9 @@
 	<form action="verify" method="post">
 		<div class="auth-form" style="background-color: white;">
 			<div class="auth-form-container">
-				<h5 class="auth-form-title"
+				<a href="client/home"><h5 class="auth-form-title"
 					style="text-align: center; padding-top: 20px;">Welcome to
-					FlatShop</h5>
+					FlatShop</h5></a>
 				<hr style="margin-top: -35px;" />
 				<p style="font-size: 18px; text-align: center;">
 					We just sent a confirmation code over to <span
